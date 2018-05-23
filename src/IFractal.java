@@ -13,5 +13,7 @@ public interface IFractal {
     double getOffsetX();
     public double getOffsetY();
     public double getFactor();
+    public int getMaxIteraciones();
+    public void setMaxIteraciones(int maxIteraciones);
     
 }

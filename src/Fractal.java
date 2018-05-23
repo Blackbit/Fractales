@@ -8,6 +8,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Date;
@@ -22,13 +24,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Cinthia
  */
 public class Fractal extends javax.swing.JPanel {
-
+    
     /**
      * @return the viewX
      */
@@ -56,23 +57,33 @@ public class Fractal extends javax.swing.JPanel {
     public void setViewY(double viewY) {
         this.viewY = viewY;
     }
-    private int MAXITER = 64;
+
     public Color[] colors = new Color[48];
     private double viewX = 0.0;
     private double viewY = 0.0;
     private double zoom = 1.0;
     private int mouseX;
     private int mouseY;
+    private boolean editable = true;
     private IFractal calculoFractal = new Mandelbrot();
     BufferedImage biImagen;
 
+    public void setEditable(boolean editable)
+    {
+        this.editable = editable;
+    }
+    
+    public boolean getEditable() 
+    {
+        return this.editable;
+    }
     /**
      * Creates new form Fractal
      */
     public Fractal() {
         initComponents();
         init();
-        
+
         MouseListener ml = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -86,24 +97,25 @@ public class Fractal extends javax.swing.JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                if (!editable)
+                    return;
                 int x = e.getX();
                 int y = e.getY();
                 if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
                     if (x != mouseX && y != mouseY) {
                         int w = getSize().width;
                         int h = getSize().height;
-                        viewX += zoom * Math.min(x, mouseX) / Math.min(w, h);
-                        viewY += zoom * Math.min(y, mouseY) / Math.min(w, h);
-                        zoom *= Math.max((double) Math.abs(x - mouseX) / w, (double) Math.abs(y - mouseY) / h);
+                        viewX += getZoom() * Math.min(x, mouseX) / Math.min(w, h);
+                        viewY += getZoom() * Math.min(y, mouseY) / Math.min(w, h);
+                        setZoom(getZoom() * Math.max((double) Math.abs(x - mouseX) / w, (double) Math.abs(y - mouseY) / h));
+/*                        int maxIteraciones = calculoFractal.getMaxIteraciones();
+                        maxIteraciones += maxIteraciones / 4;
+                        calculoFractal.setMaxIteraciones(maxIteraciones);*/
+                        repaint();
                     }
                 } else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-                    MAXITER += MAXITER / 4;
-                } else {
-                    MAXITER = 64;
-                    viewX = viewY = 0.0;
-                    zoom = 1.0;
-                }
-                paint(getGraphics());
+                } 
+                
             }
 
             @Override
@@ -113,28 +125,26 @@ public class Fractal extends javax.swing.JPanel {
             @Override
             public void mouseExited(MouseEvent e) {
             }
-            
+
         };
         addMouseListener(ml);
         MouseMotionListener mml = new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                if (!editable)
+                    return;
                 Graphics g = getGraphics();
 
-                if (SwingUtilities.isLeftMouseButton(e))
-                {
+                if (SwingUtilities.isLeftMouseButton(e)) {
                     getGraphics().drawImage(biImagen, 0, 0, null);
                     g.setColor(Color.red);
-                    g.draw3DRect(mouseX, mouseY, e.getX()-mouseX, e.getY()-mouseY, false);
-                }else if (SwingUtilities.isRightMouseButton(e))
-                {
+                    g.draw3DRect(mouseX, mouseY, e.getX() - mouseX, e.getY() - mouseY, false);
+                } else if (SwingUtilities.isRightMouseButton(e)) {
                     int w = getSize().width;
                     int h = getSize().height;
-                    viewX += (mouseX-e.getX())/32*zoom/Math.min(w, h);
-                    viewY += (mouseY-e.getY())/32*zoom/Math.min(w, h);
-//                    viewX += 1*zoom/Math.min(w, h);
-//                    viewY += 1*zoom/Math.min(w, h);
-                    paint(getGraphics());
+                    viewX += (mouseX - e.getX()) / 32 * getZoom() / Math.min(w, h);
+                    viewY += (mouseY - e.getY()) / 32 * getZoom() / Math.min(w, h);
+                    repaint();
                 }
             }
 
@@ -143,37 +153,53 @@ public class Fractal extends javax.swing.JPanel {
             }
         };
         addMouseMotionListener(mml);
+        
+        MouseWheelListener mwl = new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                if (!editable)
+                    return;
+                int maxIteraciones = calculoFractal.getMaxIteraciones();
+                maxIteraciones -= e.getWheelRotation();
+                System.out.println(maxIteraciones);
+                calculoFractal.setMaxIteraciones(maxIteraciones);
+                repaint();
+                
+            }
+        };
+        addMouseWheelListener(mwl);
     }
 
-/*    @Override
+    /*    @Override
     public void invalidate() {
         super.invalidate(); //To change body of generated methods, choose Tools | Templates.
         paint(getGraphics());
     }*/
-    
-    
-
     @Override
     public void setBounds(int x, int y, int width, int height) {
         super.setBounds(x, y, width, height); //To change body of generated methods, choose Tools | Templates.
-        biImagen = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+        if (java.beans.Beans.isDesignTime()) {
+            return;
+        }
+        if (width > 0 && height > 0)
+            biImagen = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
     }
 
     @Override
     public void setBounds(Rectangle r) {
         super.setBounds(r); //To change body of generated methods, choose Tools | Templates.
-        biImagen = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_BGR);
+        if (java.beans.Beans.isDesignTime()) {
+            return;
+        }
+        if (r.width > 0 && r.height > 0)
+            biImagen = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_BGR);
     }
-    
-    
-    
-    private IFractal getTipoFractal()
-    {
+
+    private IFractal getTipoFractal() {
         return calculoFractal;
     }
-    
-    private void setTipoFractal(IFractal tipoFractal)
-    {
+
+    private void setTipoFractal(IFractal tipoFractal) {
         this.calculoFractal = tipoFractal;
     }
 
@@ -187,8 +213,7 @@ public class Fractal extends javax.swing.JPanel {
         }
     }
 
-    public BufferedImage generaImagen(int ancho, int alto)
-    {
+    public BufferedImage generaImagen(int ancho, int alto) {
         BufferedImage biImagen = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_BGR);
         this.paint(biImagen.getGraphics());
         return biImagen;
@@ -203,7 +228,7 @@ public class Fractal extends javax.swing.JPanel {
         }
 
         Graphics g = biImagen.getGraphics();
-        
+
         int y, x;
         double dx;
         double dy;
@@ -214,7 +239,7 @@ public class Fractal extends javax.swing.JPanel {
         double offsetX = calculoFractal.getOffsetX();
         double offsetY = calculoFractal.getOffsetY();
         double factor = calculoFractal.getFactor();
-        
+
         for (y = 0; y < size.height; y++) {
             for (x = 0; x < size.width; x++) {
                 dx = factor * (x * r + getViewX()) - offsetX;
@@ -228,9 +253,8 @@ public class Fractal extends javax.swing.JPanel {
         g2.drawImage(biImagen, 0, 0, null);
 //        lblInfo.setText(String.format("%.02fs", (float)(hasta-inicio)/1000.0));
 //        System.out.println("Ha tardado "+(hasta-inicio)+"ms");
-        
-    }
 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -265,6 +289,22 @@ public class Fractal extends javax.swing.JPanel {
      */
     public void setZoom(double zoom) {
         this.zoom = zoom;
+    }
+
+    /**
+     * @param maxIteraciones Número máximo de iteraciones
+     */
+    public void setMaxIteraciones(int maxIteraciones) {
+        if (calculoFractal != null) {
+            calculoFractal.setMaxIteraciones(maxIteraciones);
+        }
+    }
+
+    /**
+     * @return El númeo máximo de iteraciones
+     */
+    public int getMaxIteraciones() {
+        return calculoFractal == null ? 0 : calculoFractal.getMaxIteraciones();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

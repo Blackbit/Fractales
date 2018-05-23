@@ -75,5 +75,15 @@ public class Mandelbrot implements IFractal{
         }
         return value == MAXITER ? 0 : value;
     }
+
+    @Override
+    public int getMaxIteraciones() {
+        return MAXITER;
+    }
+
+    @Override
+    public void setMaxIteraciones(int MAXITER) {
+        this.MAXITER = MAXITER;
+    }
     
 }
