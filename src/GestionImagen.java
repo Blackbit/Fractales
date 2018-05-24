@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author soib1a25
  */
-public class RepositorioImagenes {
+public class GestionImagen {
     
     public static ArrayList<Imagen> devuelveImagenes()
     {

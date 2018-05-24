@@ -27,9 +27,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class VentanaFractal extends javax.swing.JFrame {
 
-    private int MAXITER = 64;
-    private Color[] colors = new Color[48];
     ArrayList<Imagen> imagenes;
+
     /**
      * Creates new form VentanaFractal
      */
@@ -43,11 +42,13 @@ public class VentanaFractal extends javax.swing.JFrame {
         FileFilter imageFilter = new FileNameExtensionFilter("JPG", "jpg");
         selectorFichero.setFileFilter(imageFilter);
         selectorFichero.setAcceptAllFileFilterUsed(false);
-        
+
         btnCrearPunto.setVisible(false);
+        btnBorrarPunto.setVisible(false);
         fractalRepositorio.setEditable(false);
         pnlRepositorio.setVisible(false);
-        
+        panelDividido.setEnabled(false);
+
     }
 
     /**
@@ -67,8 +68,10 @@ public class VentanaFractal extends javax.swing.JFrame {
         btnNuevo = new javax.swing.JButton();
         cbClase = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0));
         btnRepositorio = new javax.swing.JToggleButton();
         btnCrearPunto = new javax.swing.JButton();
+        btnBorrarPunto = new javax.swing.JButton();
         panelDividido = new javax.swing.JSplitPane();
         pnlRepositorio = new javax.swing.JPanel();
         scRepositorio = new javax.swing.JScrollBar();
@@ -98,6 +101,7 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fractales");
+        setMinimumSize(new java.awt.Dimension(267, 423));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -143,6 +147,7 @@ public class VentanaFractal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnGuardar);
+        jToolBar1.add(filler1);
 
         btnRepositorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/render24.png"))); // NOI18N
         btnRepositorio.setFocusable(false);
@@ -163,9 +168,26 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnCrearPunto);
 
+        btnBorrarPunto.setText("-");
+        btnBorrarPunto.setFocusable(false);
+        btnBorrarPunto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBorrarPunto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBorrarPunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarPuntoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnBorrarPunto);
+
         panelDividido.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         pnlRepositorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlRepositorio.setMinimumSize(new java.awt.Dimension(245, 137));
+        pnlRepositorio.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                pnlRepositorioComponentResized(evt);
+            }
+        });
 
         scRepositorio.setMaximum(0);
         scRepositorio.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
@@ -176,6 +198,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
 
         fractalRepositorio.setToolTipText("");
+        fractalRepositorio.setMaximumSize(new java.awt.Dimension(160, 102));
         fractalRepositorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fractalRepositorioMouseClicked(evt);
@@ -190,24 +213,24 @@ public class VentanaFractal extends javax.swing.JFrame {
         );
         fractalRepositorioLayout.setVerticalGroup(
             fractalRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 102, Short.MAX_VALUE)
+            .addGap(0, 94, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlRepositorioLayout = new javax.swing.GroupLayout(pnlRepositorio);
         pnlRepositorio.setLayout(pnlRepositorioLayout);
         pnlRepositorioLayout.setHorizontalGroup(
             pnlRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnlRepositorioLayout.createSequentialGroup()
+            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepositorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(fractalRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(37, 37, 37))
         );
         pnlRepositorioLayout.setVerticalGroup(
             pnlRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepositorioLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(fractalRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(fractalRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -265,10 +288,11 @@ public class VentanaFractal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelDividido)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelDividido, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -284,12 +308,11 @@ public class VentanaFractal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void guardarFichero()
-    {
+    private void guardarFichero() {
         try {
             int result = selectorFichero.showSaveDialog(this);
             if (result == JFileChooser.APPROVE_OPTION) {
-                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();                
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
                 BufferedImage biImagenGrabar = fractal.generaImagen(d.width, d.height);
                 String ficheroAGrabar = selectorFichero.getSelectedFile().getAbsolutePath();
                 String sufijo = ".jpg";
@@ -305,19 +328,16 @@ public class VentanaFractal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void mnuGuardarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGuardarImagenActionPerformed
         guardarFichero();
     }//GEN-LAST:event_mnuGuardarImagenActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-//        pnlDibujo.getGraphics().drawImage(biImagenGrabar, 0, 0, null);
+
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        pnlDibujo.getGraphics().drawImage(biImagenGrabar, 0, 0, null);
-        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -338,36 +358,37 @@ public class VentanaFractal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuNuevoActionPerformed
 
     private void btnRepositorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepositorioActionPerformed
-        if (btnRepositorio.isSelected())
-        {
+        if (btnRepositorio.isSelected()) {
             pnlRepositorio.setVisible(true);
-            
-            if (ConexionDatos.getInstance() == null)
-            {
+
+            if (ConexionDatos.getInstance() == null) {
                 JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos");
                 btnRepositorio.setSelected(false);
                 btnCrearPunto.setVisible(false);
+                btnBorrarPunto.setVisible(false);
                 pnlRepositorio.setVisible(false);
                 return;
             }
-            
+
             btnCrearPunto.setVisible(true);
-            
-            imagenes = (RepositorioImagenes.devuelveImagenes());
+
+            imagenes = (GestionImagen.devuelveImagenes());
             if (imagenes == null || imagenes.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No hay puntos de interés");
                 pnlRepositorio.setVisible(false);
                 btnCrearPunto.setVisible(true);
+                btnBorrarPunto.setVisible(false);
                 return;
-            } 
+            }
+
             panelDividido.resetToPreferredSizes();
             fractalRepositorio.setVisible(true);
+            btnBorrarPunto.setVisible(true);
             scRepositorio.setEnabled(true);
-            scRepositorio.setMaximum(imagenes.size()-1);
+            scRepositorio.setMaximum(imagenes.size() - 1);
             scRepositorio.setValue(0);
 
-            switch (imagenes.get(0).getClase())
-            {
+            switch (imagenes.get(0).getClase()) {
                 case "Mandelbrot":
                     fractalRepositorio.setTipoFractal(new Mandelbrot());
                     break;
@@ -375,7 +396,7 @@ public class VentanaFractal extends javax.swing.JFrame {
                     fractalRepositorio.setTipoFractal(new Julia());
                     break;
                 default:
-                    System.out.println("Tipo de fractal desconocido :"+imagenes.get(0).getClase());
+                    System.out.println("Tipo de fractal desconocido :" + imagenes.get(0).getClase());
                     break;
             }
             fractalRepositorio.setViewX(imagenes.get(0).getX());
@@ -383,16 +404,15 @@ public class VentanaFractal extends javax.swing.JFrame {
             fractalRepositorio.setZoom(imagenes.get(0).getZoom());
             fractalRepositorio.setMaxIteraciones(imagenes.get(0).getMax_iteraciones());
             fractalRepositorio.repaint();
-            
-        }else
-        {
+
+        } else {
             pnlRepositorio.setVisible(false);
             btnCrearPunto.setVisible(false);
         }
     }//GEN-LAST:event_btnRepositorioActionPerformed
 
     private void btnCrearPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPuntoActionPerformed
-        RepositorioImagenes.crearPuntoInteres(new Imagen(0, (String)cbClase.getSelectedItem(), fractal.getViewX(), fractal.getViewY(), fractal.getZoom(), fractal.getMaxIteraciones()));
+        GestionImagen.crearPuntoInteres(new Imagen(0, (String) cbClase.getSelectedItem(), fractal.getViewX(), fractal.getViewY(), fractal.getZoom(), fractal.getMaxIteraciones()));
         btnRepositorioActionPerformed(evt);
     }//GEN-LAST:event_btnCrearPuntoActionPerformed
 
@@ -407,33 +427,31 @@ public class VentanaFractal extends javax.swing.JFrame {
     }//GEN-LAST:event_fractalRepositorioMouseClicked
 
     private void scRepositorioAdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scRepositorioAdjustmentValueChanged
-/*        if (evt.getValueIsAdjusting()) {
+        /*        if (evt.getValueIsAdjusting()) {
               return;
             }*/
         int n = evt.getValue();
-            switch (imagenes.get(n).getClase())
-            {
-                case "Mandelbrot":
-                    fractalRepositorio.setTipoFractal(new Mandelbrot());
-                    break;
-                case "Julia":
-                    fractalRepositorio.setTipoFractal(new Julia());
-                    break;
-                default:
-                    System.out.println("Tipo de fractal desconocido :"+imagenes.get(0).getClase());
-                    break;
-            }
-        
+        switch (imagenes.get(n).getClase()) {
+            case "Mandelbrot":
+                fractalRepositorio.setTipoFractal(new Mandelbrot());
+                break;
+            case "Julia":
+                fractalRepositorio.setTipoFractal(new Julia());
+                break;
+            default:
+                System.out.println("Tipo de fractal desconocido :" + imagenes.get(0).getClase());
+                break;
+        }
+
         fractalRepositorio.setViewX(imagenes.get(n).getX());
-            fractalRepositorio.setViewY(imagenes.get(n).getY());
-            fractalRepositorio.setZoom(imagenes.get(n).getZoom());
-            fractalRepositorio.setMaxIteraciones(imagenes.get(n).getMax_iteraciones());
-            fractalRepositorio.repaint();
+        fractalRepositorio.setViewY(imagenes.get(n).getY());
+        fractalRepositorio.setZoom(imagenes.get(n).getZoom());
+        fractalRepositorio.setMaxIteraciones(imagenes.get(n).getMax_iteraciones());
+        fractalRepositorio.repaint();
     }//GEN-LAST:event_scRepositorioAdjustmentValueChanged
 
     private void cbClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClaseActionPerformed
-        switch (cbClase.getSelectedIndex())
-        {
+        switch (cbClase.getSelectedIndex()) {
             case 0:
                 fractal.setTipoFractal(new Mandelbrot());
                 break;
@@ -444,12 +462,20 @@ public class VentanaFractal extends javax.swing.JFrame {
         fractal.setViewX(0);
         fractal.setViewY(0);
         fractal.setZoom(1);
-        
+
         fractal.invalidate();
         fractal.repaint();
-        
-        // TODO add your handling code here:
     }//GEN-LAST:event_cbClaseActionPerformed
+
+    private void btnBorrarPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPuntoActionPerformed
+        GestionImagen.borrarPuntoInteres(imagenes.get(scRepositorio.getValue()).getId());
+        btnRepositorioActionPerformed(evt);
+    }//GEN-LAST:event_btnBorrarPuntoActionPerformed
+
+    private void pnlRepositorioComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlRepositorioComponentResized
+        Dimension d = pnlRepositorio.getSize();
+        fractalRepositorio.setLocation(d.width/2-fractalRepositorio.getWidth()/2,d.height/2-fractalRepositorio.getHeight()/2-scRepositorio.getHeight()/2);
+    }//GEN-LAST:event_pnlRepositorioComponentResized
 
     /**
      * @param args the command line arguments
@@ -487,11 +513,13 @@ public class VentanaFractal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrarPunto;
     private javax.swing.JButton btnCrearPunto;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JToggleButton btnRepositorio;
     private javax.swing.JComboBox<String> cbClase;
+    private javax.swing.Box.Filler filler1;
     private Fractal fractal;
     private Fractal fractal2;
     private Fractal fractalRepositorio;
