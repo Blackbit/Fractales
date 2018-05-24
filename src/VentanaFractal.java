@@ -65,6 +65,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         lblInfo = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         btnNuevo = new javax.swing.JButton();
+        cbClase = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         btnRepositorio = new javax.swing.JToggleButton();
         btnCrearPunto = new javax.swing.JButton();
@@ -122,6 +123,15 @@ public class VentanaFractal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnNuevo);
+
+        cbClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mandelbrot", "Julia" }));
+        cbClase.setMaximumSize(new java.awt.Dimension(80, 32767));
+        cbClase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbClaseActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(cbClase);
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save24.png"))); // NOI18N
         btnGuardar.setFocusable(false);
@@ -208,7 +218,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         fractal.setLayout(fractalLayout);
         fractalLayout.setHorizontalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGap(0, 245, Short.MAX_VALUE)
         );
         fractalLayout.setVerticalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,6 +366,18 @@ public class VentanaFractal extends javax.swing.JFrame {
             scRepositorio.setMaximum(imagenes.size()-1);
             scRepositorio.setValue(0);
 
+            switch (imagenes.get(0).getClase())
+            {
+                case "Mandelbrot":
+                    fractalRepositorio.setTipoFractal(new Mandelbrot());
+                    break;
+                case "Julia":
+                    fractalRepositorio.setTipoFractal(new Julia());
+                    break;
+                default:
+                    System.out.println("Tipo de fractal desconocido :"+imagenes.get(0).getClase());
+                    break;
+            }
             fractalRepositorio.setViewX(imagenes.get(0).getX());
             fractalRepositorio.setViewY(imagenes.get(0).getY());
             fractalRepositorio.setZoom(imagenes.get(0).getZoom());
@@ -370,12 +392,13 @@ public class VentanaFractal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRepositorioActionPerformed
 
     private void btnCrearPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPuntoActionPerformed
-        RepositorioImagenes.crearPuntoInteres(new Imagen(0, "Mandelbrot", fractal.getViewX(), fractal.getViewY(), fractal.getZoom(), fractal.getMaxIteraciones()));
+        RepositorioImagenes.crearPuntoInteres(new Imagen(0, (String)cbClase.getSelectedItem(), fractal.getViewX(), fractal.getViewY(), fractal.getZoom(), fractal.getMaxIteraciones()));
         btnRepositorioActionPerformed(evt);
     }//GEN-LAST:event_btnCrearPuntoActionPerformed
 
     private void fractalRepositorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fractalRepositorioMouseClicked
-        // TODO add your handling code here:
+        cbClase.setSelectedItem(fractalRepositorio.getTipoFractal().getClass().getName());
+        fractal.setTipoFractal(fractalRepositorio.getTipoFractal());
         fractal.setViewX(fractalRepositorio.getViewX());
         fractal.setViewY(fractalRepositorio.getViewY());
         fractal.setZoom(fractalRepositorio.getZoom());
@@ -388,12 +411,45 @@ public class VentanaFractal extends javax.swing.JFrame {
               return;
             }*/
         int n = evt.getValue();
+            switch (imagenes.get(n).getClase())
+            {
+                case "Mandelbrot":
+                    fractalRepositorio.setTipoFractal(new Mandelbrot());
+                    break;
+                case "Julia":
+                    fractalRepositorio.setTipoFractal(new Julia());
+                    break;
+                default:
+                    System.out.println("Tipo de fractal desconocido :"+imagenes.get(0).getClase());
+                    break;
+            }
+        
         fractalRepositorio.setViewX(imagenes.get(n).getX());
             fractalRepositorio.setViewY(imagenes.get(n).getY());
             fractalRepositorio.setZoom(imagenes.get(n).getZoom());
             fractalRepositorio.setMaxIteraciones(imagenes.get(n).getMax_iteraciones());
             fractalRepositorio.repaint();
     }//GEN-LAST:event_scRepositorioAdjustmentValueChanged
+
+    private void cbClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClaseActionPerformed
+        switch (cbClase.getSelectedIndex())
+        {
+            case 0:
+                fractal.setTipoFractal(new Mandelbrot());
+                break;
+            case 1:
+                fractal.setTipoFractal(new Julia());
+                break;
+        }
+        fractal.setViewX(0);
+        fractal.setViewY(0);
+        fractal.setZoom(1);
+        
+        fractal.invalidate();
+        fractal.repaint();
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbClaseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,6 +491,7 @@ public class VentanaFractal extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JToggleButton btnRepositorio;
+    private javax.swing.JComboBox<String> cbClase;
     private Fractal fractal;
     private Fractal fractal2;
     private Fractal fractalRepositorio;

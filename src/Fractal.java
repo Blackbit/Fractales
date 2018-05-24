@@ -195,11 +195,11 @@ public class Fractal extends javax.swing.JPanel {
             biImagen = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_BGR);
     }
 
-    private IFractal getTipoFractal() {
+    public IFractal getTipoFractal() {
         return calculoFractal;
     }
 
-    private void setTipoFractal(IFractal tipoFractal) {
+    public void setTipoFractal(IFractal tipoFractal) {
         this.calculoFractal = tipoFractal;
     }
 
@@ -227,8 +227,6 @@ public class Fractal extends javax.swing.JPanel {
             return;
         }
 
-        Graphics g = biImagen.getGraphics();
-
         int y, x;
         double dx;
         double dy;
@@ -245,16 +243,53 @@ public class Fractal extends javax.swing.JPanel {
                 dx = factor * (x * r + getViewX()) - offsetX;
                 dy = offsetY - factor * (y * r + getViewY());
                 value = calculoFractal.calculaPunto(dx, dy);
-                g.setColor(colors[value % colors.length]);
-                g.drawLine(x, y, x, y);
+                biImagen.setRGB(x, y, colors[value % colors.length].getRGB());
             }
         }
         long hasta = (new Date()).getTime();
         g2.drawImage(biImagen, 0, 0, null);
 //        lblInfo.setText(String.format("%.02fs", (float)(hasta-inicio)/1000.0));
-//        System.out.println("Ha tardado "+(hasta-inicio)+"ms");
+        System.out.println("Ha tardado "+(hasta-inicio)+"ms");
 
     }
+    
+    /*@Override
+    public void paint(Graphics g2) {
+        super.paint(g2); //To change body of generated methods, choose Tools | Templates.
+        if (java.beans.Beans.isDesignTime()) {
+            return;
+        }
+    int maxIter = 300;
+    double zoom = 1;
+    double cY, cX;
+       int w = getWidth();
+        int h = getHeight();
+        BufferedImage image = new BufferedImage(w, h,
+                BufferedImage.TYPE_INT_RGB);
+ 
+        cX = -0.7;
+        cY = 0.27015;
+        double moveX = 0, moveY = 0;
+        double zx, zy;
+ 
+        for (int x = 0; x < w; x++) {
+            for (int y = 0; y < h; y++) {
+                zx = 1.5 * (x - w / 2) / (0.5 * zoom * w) + moveX;
+                zy = (y - h / 2) / (0.5 * zoom * h) + moveY;
+                float i = maxIter;
+                while (zx * zx + zy * zy < 4 && i > 0) {
+                    double tmp = zx * zx - zy * zy + cX;
+                    zy = 2.0 * zx * zy + cY;
+                    zx = tmp;
+                    i--;
+                }
+                int c = Color.HSBtoRGB((maxIter / i) % 1, 1, i > 0 ? 1 : 0);
+                image.setRGB(x, y, c);
+            }
+        }
+        g2.drawImage(image, 0, 0, null);
+    }*/
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
