@@ -333,10 +333,6 @@ public class Fractal extends javax.swing.JPanel {
     public void setMaxIteraciones(int maxIteraciones) {
         if (calculoFractal != null) {
             calculoFractal.setMaxIteraciones(maxIteraciones);
-            if (this.getName()=="fractal")
-            {
-                System.out.println("Error");
-            }
         }
     }
 

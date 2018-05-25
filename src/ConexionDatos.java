@@ -17,7 +17,8 @@ public class ConexionDatos {
     static public String bd = "fractales";
     static public String login = "root";
     static public String password = "";
-    static public String url = "jdbc:mysql://localhost/" + bd;
+    static public String server = "localhost";
+    static public String url = "jdbc:mysql://"+server+"/" + bd;
     static public Connection link = null;
     
     private ConexionDatos() {

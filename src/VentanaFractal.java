@@ -70,6 +70,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         btnRepositorio = new javax.swing.JToggleButton();
         btnCrearPunto = new javax.swing.JButton();
         btnBorrarPunto = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         panelDividido = new javax.swing.JSplitPane();
         pnlRepositorio = new javax.swing.JPanel();
         scRepositorio = new javax.swing.JScrollBar();
@@ -86,6 +87,8 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuConectarBD = new javax.swing.JMenuItem();
         mnuCrearPunto = new javax.swing.JMenuItem();
         mnuBorrarPunto = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuAyuda = new javax.swing.JMenuItem();
 
@@ -194,6 +197,17 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnBorrarPunto);
 
+        jButton1.setText("Crear BD");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+
         panelDividido.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         pnlRepositorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -236,7 +250,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         pnlRepositorio.setLayout(pnlRepositorioLayout);
         pnlRepositorioLayout.setHorizontalGroup(
             pnlRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepositorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(fractalRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,7 +274,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         fractal.setLayout(fractalLayout);
         fractalLayout.setHorizontalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 287, Short.MAX_VALUE)
+            .addGap(0, 313, Short.MAX_VALUE)
         );
         fractalLayout.setVerticalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,6 +339,10 @@ public class VentanaFractal extends javax.swing.JFrame {
             }
         });
         mnuEdit.add(mnuBorrarPunto);
+        mnuEdit.add(jSeparator1);
+
+        jMenuItem1.setText("Opciones");
+        mnuEdit.add(jMenuItem1);
 
         jMenu.add(mnuEdit);
 
@@ -568,6 +586,14 @@ public class VentanaFractal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mnuAyudaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (BaseDatosHelper.CrearBasedatos())
+            JOptionPane.showMessageDialog(null, "Base de datos creada correctamente o ya existía", "Ok", JOptionPane.INFORMATION_MESSAGE);
+        else
+            JOptionPane.showMessageDialog(null, "Error al crear base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -614,8 +640,11 @@ public class VentanaFractal extends javax.swing.JFrame {
     private Fractal fractal;
     private Fractal fractal2;
     private Fractal fractalRepositorio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JMenuBar jMenu;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblInfo;
     private javax.swing.JMenuItem mnuAyuda;
