@@ -16,11 +16,11 @@ import java.util.ArrayList;
  *
  * @author soib1a25
  */
-public class GestionImagen {
+public class GestionPuntoInteres {
     
-    public static ArrayList<Imagen> devuelveImagenes()
+    public static ArrayList<PuntoInteres> devuelvePuntosInteres()
     {
-        ArrayList<Imagen> lista = new ArrayList<>();
+        ArrayList<PuntoInteres> lista = new ArrayList<>();
         Connection bd = ConexionDatos.getInstance();
         try {
             String vSQL = "SELECT id, x, y, zoom, clase, max_iteraciones from punto_interes";
@@ -37,7 +37,7 @@ public class GestionImagen {
                 double zoom = rs.getDouble("zoom");
                 int max_iteraciones = rs.getInt("max_iteraciones");
                 
-                lista.add(new Imagen(id, clase, x, y, zoom, max_iteraciones));
+                lista.add(new PuntoInteres(id, clase, x, y, zoom, max_iteraciones));
 
             }
             
@@ -49,7 +49,7 @@ public class GestionImagen {
         return lista;
     }
 
-    public static boolean crearPuntoInteres(Imagen i)
+    public static boolean crearPuntoInteres(PuntoInteres i)
     {
         Connection bd = ConexionDatos.getInstance();
         String vSQL = "INSERT INTO punto_interes(clase , x, y, zoom, max_iteraciones) VALUES (? , ? , ?, ?, ?)";

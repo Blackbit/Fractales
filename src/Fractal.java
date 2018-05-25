@@ -97,10 +97,10 @@ public class Fractal extends javax.swing.JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (!editable)
-                    return;
                 int x = e.getX();
                 int y = e.getY();
+                if (!editable)
+                    return;
                 if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
                     if (x != mouseX && y != mouseY) {
                         int w = getSize().width;
@@ -133,17 +133,17 @@ public class Fractal extends javax.swing.JPanel {
             public void mouseDragged(MouseEvent e) {
                 if (!editable)
                     return;
-                Graphics g = getGraphics();
 
                 if (SwingUtilities.isLeftMouseButton(e)) {
+                    Graphics g = getGraphics();
                     getGraphics().drawImage(biImagen, 0, 0, null);
                     g.setColor(Color.red);
                     g.draw3DRect(mouseX, mouseY, e.getX() - mouseX, e.getY() - mouseY, false);
                 } else if (SwingUtilities.isRightMouseButton(e)) {
                     int w = getSize().width;
                     int h = getSize().height;
-                    viewX += (mouseX - e.getX()) / 32 * getZoom() / Math.min(w, h);
-                    viewY += (mouseY - e.getY()) / 32 * getZoom() / Math.min(w, h);
+                    viewX += (mouseX - e.getX()) / 16 * getZoom() / Math.min(w, h);
+                    viewY += (mouseY - e.getY()) / 16 * getZoom() / Math.min(w, h);
                     repaint();
                 }
             }
@@ -222,7 +222,7 @@ public class Fractal extends javax.swing.JPanel {
 
     @Override
     public void paint(Graphics g2) {
-        super.paint(g2); //To change body of generated methods, choose Tools | Templates.
+        super.paint(g2); 
         if (java.beans.Beans.isDesignTime()) {
             return;
         }
@@ -249,7 +249,8 @@ public class Fractal extends javax.swing.JPanel {
         long hasta = (new Date()).getTime();
         g2.drawImage(biImagen, 0, 0, null);
 //        lblInfo.setText(String.format("%.02fs", (float)(hasta-inicio)/1000.0));
-        System.out.println("Ha tardado "+(hasta-inicio)+"ms");
+//        System.out.println("Ha tardado "+(hasta-inicio)+"ms");
+        System.out.println(this.getName()+ " : NumIter"+calculoFractal.getMaxIteraciones());
 
     }
     
@@ -332,6 +333,10 @@ public class Fractal extends javax.swing.JPanel {
     public void setMaxIteraciones(int maxIteraciones) {
         if (calculoFractal != null) {
             calculoFractal.setMaxIteraciones(maxIteraciones);
+            if (this.getName()=="fractal")
+            {
+                System.out.println("Error");
+            }
         }
     }
 

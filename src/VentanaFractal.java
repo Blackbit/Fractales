@@ -1,15 +1,10 @@
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -27,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class VentanaFractal extends javax.swing.JFrame {
 
-    ArrayList<Imagen> imagenes;
+    ArrayList<PuntoInteres> puntosInteres;
 
     /**
      * Creates new form VentanaFractal
@@ -102,6 +97,11 @@ public class VentanaFractal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fractales");
         setMinimumSize(new java.awt.Dimension(267, 423));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -114,6 +114,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         lblInfo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/new24.png"))); // NOI18N
@@ -128,7 +129,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnNuevo);
 
-        cbClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mandelbrot", "Julia" }));
+        cbClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mandelbrot", "Julia", "Julia2", "Julia3", "Julia4", "Julia5", "Julia6", "Julia7" }));
         cbClase.setMaximumSize(new java.awt.Dimension(80, 32767));
         cbClase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +150,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.add(btnGuardar);
         jToolBar1.add(filler1);
 
-        btnRepositorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/render24.png"))); // NOI18N
+        btnRepositorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db2.png"))); // NOI18N
         btnRepositorio.setFocusable(false);
         btnRepositorio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRepositorio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -160,7 +161,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnRepositorio);
 
-        btnCrearPunto.setText("+");
+        btnCrearPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addpicture.png"))); // NOI18N
         btnCrearPunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearPuntoActionPerformed(evt);
@@ -168,7 +169,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnCrearPunto);
 
-        btnBorrarPunto.setText("-");
+        btnBorrarPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove-picture.png"))); // NOI18N
         btnBorrarPunto.setFocusable(false);
         btnBorrarPunto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnBorrarPunto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -199,6 +200,7 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         fractalRepositorio.setToolTipText("");
         fractalRepositorio.setMaximumSize(new java.awt.Dimension(160, 102));
+        fractalRepositorio.setName("repositorio"); // NOI18N
         fractalRepositorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fractalRepositorioMouseClicked(evt);
@@ -220,7 +222,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         pnlRepositorio.setLayout(pnlRepositorioLayout);
         pnlRepositorioLayout.setHorizontalGroup(
             pnlRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepositorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(fractalRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,11 +239,13 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         panelDividido.setTopComponent(pnlRepositorio);
 
+        fractal.setName("fractal"); // NOI18N
+
         javax.swing.GroupLayout fractalLayout = new javax.swing.GroupLayout(fractal);
         fractal.setLayout(fractalLayout);
         fractalLayout.setHorizontalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 245, Short.MAX_VALUE)
+            .addGap(0, 287, Short.MAX_VALUE)
         );
         fractalLayout.setVerticalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,8 +376,8 @@ public class VentanaFractal extends javax.swing.JFrame {
 
             btnCrearPunto.setVisible(true);
 
-            imagenes = (GestionImagen.devuelveImagenes());
-            if (imagenes == null || imagenes.isEmpty()) {
+            puntosInteres = (GestionPuntoInteres.devuelvePuntosInteres());
+            if (puntosInteres == null || puntosInteres.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No hay puntos de interés");
                 pnlRepositorio.setVisible(false);
                 btnCrearPunto.setVisible(true);
@@ -385,40 +389,31 @@ public class VentanaFractal extends javax.swing.JFrame {
             fractalRepositorio.setVisible(true);
             btnBorrarPunto.setVisible(true);
             scRepositorio.setEnabled(true);
-            scRepositorio.setMaximum(imagenes.size() - 1);
+            scRepositorio.setMaximum(puntosInteres.size() - 1);
             scRepositorio.setValue(0);
 
-            switch (imagenes.get(0).getClase()) {
-                case "Mandelbrot":
-                    fractalRepositorio.setTipoFractal(new Mandelbrot());
-                    break;
-                case "Julia":
-                    fractalRepositorio.setTipoFractal(new Julia());
-                    break;
-                default:
-                    System.out.println("Tipo de fractal desconocido :" + imagenes.get(0).getClase());
-                    break;
-            }
-            fractalRepositorio.setViewX(imagenes.get(0).getX());
-            fractalRepositorio.setViewY(imagenes.get(0).getY());
-            fractalRepositorio.setZoom(imagenes.get(0).getZoom());
-            fractalRepositorio.setMaxIteraciones(imagenes.get(0).getMax_iteraciones());
+            fractalRepositorio.setTipoFractal(devuelveFractal(puntosInteres.get(0).getClase()));
+            fractalRepositorio.setViewX(puntosInteres.get(0).getX());
+            fractalRepositorio.setViewY(puntosInteres.get(0).getY());
+            fractalRepositorio.setZoom(puntosInteres.get(0).getZoom());
+            fractalRepositorio.setMaxIteraciones(puntosInteres.get(0).getMax_iteraciones());
             fractalRepositorio.repaint();
 
         } else {
             pnlRepositorio.setVisible(false);
             btnCrearPunto.setVisible(false);
+            btnBorrarPunto.setVisible(false);
         }
     }//GEN-LAST:event_btnRepositorioActionPerformed
 
     private void btnCrearPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPuntoActionPerformed
-        GestionImagen.crearPuntoInteres(new Imagen(0, (String) cbClase.getSelectedItem(), fractal.getViewX(), fractal.getViewY(), fractal.getZoom(), fractal.getMaxIteraciones()));
+        GestionPuntoInteres.crearPuntoInteres(new PuntoInteres(0, (String) cbClase.getSelectedItem(), fractal.getViewX(), fractal.getViewY(), fractal.getZoom(), fractal.getMaxIteraciones()));
         btnRepositorioActionPerformed(evt);
     }//GEN-LAST:event_btnCrearPuntoActionPerformed
 
     private void fractalRepositorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fractalRepositorioMouseClicked
         cbClase.setSelectedItem(fractalRepositorio.getTipoFractal().getClass().getName());
-        fractal.setTipoFractal(fractalRepositorio.getTipoFractal());
+        fractal.setTipoFractal(devuelveFractal(fractalRepositorio.getTipoFractal().getClass().getName()));
         fractal.setViewX(fractalRepositorio.getViewX());
         fractal.setViewY(fractalRepositorio.getViewY());
         fractal.setZoom(fractalRepositorio.getZoom());
@@ -431,34 +426,44 @@ public class VentanaFractal extends javax.swing.JFrame {
               return;
             }*/
         int n = evt.getValue();
-        switch (imagenes.get(n).getClase()) {
-            case "Mandelbrot":
-                fractalRepositorio.setTipoFractal(new Mandelbrot());
-                break;
-            case "Julia":
-                fractalRepositorio.setTipoFractal(new Julia());
-                break;
-            default:
-                System.out.println("Tipo de fractal desconocido :" + imagenes.get(0).getClase());
-                break;
-        }
-
-        fractalRepositorio.setViewX(imagenes.get(n).getX());
-        fractalRepositorio.setViewY(imagenes.get(n).getY());
-        fractalRepositorio.setZoom(imagenes.get(n).getZoom());
-        fractalRepositorio.setMaxIteraciones(imagenes.get(n).getMax_iteraciones());
+        
+        fractalRepositorio.setTipoFractal(devuelveFractal(puntosInteres.get(n).getClase()));
+        fractalRepositorio.setViewX(puntosInteres.get(n).getX());
+        fractalRepositorio.setViewY(puntosInteres.get(n).getY());
+        fractalRepositorio.setZoom(puntosInteres.get(n).getZoom());
+        fractalRepositorio.setMaxIteraciones(puntosInteres.get(n).getMax_iteraciones());
         fractalRepositorio.repaint();
     }//GEN-LAST:event_scRepositorioAdjustmentValueChanged
 
-    private void cbClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClaseActionPerformed
-        switch (cbClase.getSelectedIndex()) {
-            case 0:
-                fractal.setTipoFractal(new Mandelbrot());
-                break;
-            case 1:
-                fractal.setTipoFractal(new Julia());
-                break;
+    private IFractal devuelveFractal(String nombre)
+    {
+        switch (nombre) {
+            case "Mandelbrot":
+                return new Mandelbrot();
+            case "Julia":
+                return new Julia();
+            case "Julia2":
+                return new Julia2();
+            case "Julia3":
+                return new Julia3();
+            case "Julia4":
+                return new Julia4();
+            case "Julia5":
+                return new Julia5();
+            case "Julia6":
+                return new Julia6();
+            case "Julia7":
+                return new Julia7();
+            default:
+                System.out.println("Tipo fractal no reconocido. "+nombre);
+                return null;
         }
+        
+    }
+    
+    private void cbClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClaseActionPerformed
+
+        fractal.setTipoFractal(devuelveFractal((String)cbClase.getSelectedItem()));
         fractal.setViewX(0);
         fractal.setViewY(0);
         fractal.setZoom(1);
@@ -468,7 +473,7 @@ public class VentanaFractal extends javax.swing.JFrame {
     }//GEN-LAST:event_cbClaseActionPerformed
 
     private void btnBorrarPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPuntoActionPerformed
-        GestionImagen.borrarPuntoInteres(imagenes.get(scRepositorio.getValue()).getId());
+        GestionPuntoInteres.borrarPuntoInteres(puntosInteres.get(scRepositorio.getValue()).getId());
         btnRepositorioActionPerformed(evt);
     }//GEN-LAST:event_btnBorrarPuntoActionPerformed
 
@@ -476,6 +481,10 @@ public class VentanaFractal extends javax.swing.JFrame {
         Dimension d = pnlRepositorio.getSize();
         fractalRepositorio.setLocation(d.width/2-fractalRepositorio.getWidth()/2,d.height/2-fractalRepositorio.getHeight()/2-scRepositorio.getHeight()/2);
     }//GEN-LAST:event_pnlRepositorioComponentResized
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        pnlRepositorioComponentResized(evt);        
+    }//GEN-LAST:event_formComponentResized
 
     /**
      * @param args the command line arguments

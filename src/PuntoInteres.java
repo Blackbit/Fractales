@@ -8,7 +8,7 @@
  *
  * @author soib1a25
  */
-class Imagen
+class PuntoInteres
 {
 
     /**
@@ -87,7 +87,7 @@ class Imagen
     private int max_iteraciones;
     private String clase;
 
-    Imagen()
+    PuntoInteres()
     {
         id = 0;
         x = 0;
@@ -97,7 +97,7 @@ class Imagen
         clase ="";
     }
     
-    public Imagen(int id, String clase, double x, double y, double zoom, int max_iteraciones)
+    public PuntoInteres(int id, String clase, double x, double y, double zoom, int max_iteraciones)
     {
         this.id = id;
         this.clase = clase;

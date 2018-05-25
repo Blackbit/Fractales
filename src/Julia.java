@@ -34,7 +34,7 @@ public class Julia implements IFractal{
         return 2.5;
     }
 
-    static int MAXITER = 200;
+    int MAXITER = 200;
 
     @Override
         public int calculaPunto(double px, double py) {
