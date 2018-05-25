@@ -23,7 +23,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class VentanaFractal extends javax.swing.JFrame {
 
     ArrayList<PuntoInteres> puntosInteres;
-
+    VentanaAyuda ventanaAyuda = new VentanaAyuda();
+    
     /**
      * Creates new form VentanaFractal
      */
@@ -39,7 +40,9 @@ public class VentanaFractal extends javax.swing.JFrame {
         selectorFichero.setAcceptAllFileFilterUsed(false);
 
         btnCrearPunto.setVisible(false);
+        mnuAddPuntoInteres.setVisible(false);
         btnBorrarPunto.setVisible(false);
+        mnuDelPuntoInteres.setVisible(false);
         fractalRepositorio.setEditable(false);
         pnlRepositorio.setVisible(false);
         panelDividido.setEnabled(false);
@@ -79,7 +82,12 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuGuardarImagen = new javax.swing.JMenuItem();
         mnuSeparador2 = new javax.swing.JPopupMenu.Separator();
         mnuSalir = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnuEdit = new javax.swing.JMenu();
+        mnuConectarBD = new javax.swing.JMenuItem();
+        mnuAddPuntoInteres = new javax.swing.JMenuItem();
+        mnuDelPuntoInteres = new javax.swing.JMenuItem();
+        mnuHelp = new javax.swing.JMenu();
+        mnuAyuda = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout fractal2Layout = new javax.swing.GroupLayout(fractal2);
         fractal2.setLayout(fractal2Layout);
@@ -282,8 +290,49 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         jMenu.add(mnuFichero);
 
-        jMenu2.setText("Edit");
-        jMenu.add(jMenu2);
+        mnuEdit.setText("Edit");
+
+        mnuConectarBD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db2.png"))); // NOI18N
+        mnuConectarBD.setText("Conectar a BD");
+        mnuConectarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuConectarBDActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuConectarBD);
+
+        mnuAddPuntoInteres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addpicture.png"))); // NOI18N
+        mnuAddPuntoInteres.setText("Añadir punto interés");
+        mnuAddPuntoInteres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAddPuntoInteresActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuAddPuntoInteres);
+
+        mnuDelPuntoInteres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove-picture.png"))); // NOI18N
+        mnuDelPuntoInteres.setText("Borrar punto interés");
+        mnuDelPuntoInteres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuDelPuntoInteresActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuDelPuntoInteres);
+
+        jMenu.add(mnuEdit);
+
+        mnuHelp.setText("Ayuda");
+
+        mnuAyuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        mnuAyuda.setText("Ayuda");
+        mnuAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAyudaActionPerformed(evt);
+            }
+        });
+        mnuHelp.add(mnuAyuda);
+
+        jMenu.add(mnuHelp);
 
         setJMenuBar(jMenu);
 
@@ -369,25 +418,32 @@ public class VentanaFractal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos");
                 btnRepositorio.setSelected(false);
                 btnCrearPunto.setVisible(false);
+                mnuAddPuntoInteres.setVisible(false);
                 btnBorrarPunto.setVisible(false);
+                mnuDelPuntoInteres.setVisible(false);
                 pnlRepositorio.setVisible(false);
                 return;
             }
 
             btnCrearPunto.setVisible(true);
+            mnuAddPuntoInteres.setVisible(true);
 
             puntosInteres = (GestionPuntoInteres.devuelvePuntosInteres());
             if (puntosInteres == null || puntosInteres.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No hay puntos de interés");
                 pnlRepositorio.setVisible(false);
                 btnCrearPunto.setVisible(true);
+                mnuAddPuntoInteres.setVisible(true);
                 btnBorrarPunto.setVisible(false);
+                mnuDelPuntoInteres.setVisible(false);
                 return;
             }
 
             panelDividido.resetToPreferredSizes();
             fractalRepositorio.setVisible(true);
             btnBorrarPunto.setVisible(true);
+            mnuDelPuntoInteres.setVisible(true);
+            
             scRepositorio.setEnabled(true);
             scRepositorio.setMaximum(puntosInteres.size() - 1);
             scRepositorio.setValue(0);
@@ -402,7 +458,9 @@ public class VentanaFractal extends javax.swing.JFrame {
         } else {
             pnlRepositorio.setVisible(false);
             btnCrearPunto.setVisible(false);
+            mnuAddPuntoInteres.setVisible(false);
             btnBorrarPunto.setVisible(false);
+            mnuDelPuntoInteres.setVisible(false);
         }
     }//GEN-LAST:event_btnRepositorioActionPerformed
 
@@ -486,6 +544,23 @@ public class VentanaFractal extends javax.swing.JFrame {
         pnlRepositorioComponentResized(evt);        
     }//GEN-LAST:event_formComponentResized
 
+    private void mnuConectarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuConectarBDActionPerformed
+        btnRepositorio.setSelected(!btnRepositorio.isSelected());
+        btnRepositorioActionPerformed(evt);
+    }//GEN-LAST:event_mnuConectarBDActionPerformed
+
+    private void mnuAddPuntoInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAddPuntoInteresActionPerformed
+        btnCrearPuntoActionPerformed(evt);
+    }//GEN-LAST:event_mnuAddPuntoInteresActionPerformed
+
+    private void mnuDelPuntoInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDelPuntoInteresActionPerformed
+        btnBorrarPuntoActionPerformed(evt);
+    }//GEN-LAST:event_mnuDelPuntoInteresActionPerformed
+
+    private void mnuAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAyudaActionPerformed
+        
+    }//GEN-LAST:event_mnuAyudaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -534,11 +609,16 @@ public class VentanaFractal extends javax.swing.JFrame {
     private Fractal fractalRepositorio;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JMenuBar jMenu;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblInfo;
+    private javax.swing.JMenuItem mnuAddPuntoInteres;
+    private javax.swing.JMenuItem mnuAyuda;
+    private javax.swing.JMenuItem mnuConectarBD;
+    private javax.swing.JMenuItem mnuDelPuntoInteres;
+    private javax.swing.JMenu mnuEdit;
     private javax.swing.JMenu mnuFichero;
     private javax.swing.JMenuItem mnuGuardarImagen;
+    private javax.swing.JMenu mnuHelp;
     private javax.swing.JMenuItem mnuNuevo;
     private javax.swing.JMenuItem mnuSalir;
     private javax.swing.JPopupMenu.Separator mnuSeparador1;

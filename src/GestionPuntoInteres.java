@@ -52,7 +52,7 @@ public class GestionPuntoInteres {
     public static boolean crearPuntoInteres(PuntoInteres i)
     {
         Connection bd = ConexionDatos.getInstance();
-        String vSQL = "INSERT INTO punto_interes(clase , x, y, zoom, max_iteraciones) VALUES (? , ? , ?, ?, ?)";
+        String vSQL = "INSERT INTO punto_interes(clase , x, y, zoom, max_iteraciones) VALUES (?, ?, ?, ?, ?)";
 
         try {
             
