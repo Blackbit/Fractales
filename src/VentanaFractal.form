@@ -83,7 +83,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuConectarBDActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuAddPuntoInteres">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuCrearPunto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/addpicture.png"/>
@@ -91,10 +91,10 @@
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir punto inter&#xe9;s"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuAddPuntoInteresActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCrearPuntoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuDelPuntoInteres">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuBorrarPunto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/remove-picture.png"/>
@@ -102,7 +102,7 @@
                 <Property name="text" type="java.lang.String" value="Borrar punto inter&#xe9;s"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuDelPuntoInteresActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuBorrarPuntoActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -209,6 +209,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/new24.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Inicializar fractal"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -234,6 +235,7 @@
                 <StringItem index="7" value="Julia7"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Selector tipo de fractal"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[80, 32767]"/>
             </Property>
@@ -250,6 +252,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/save24.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Exportar imagen a fichero JPG "/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -279,6 +282,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/db2.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Conectar a la base de datos"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -292,6 +296,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/addpicture.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="A&#xf1;adir punto de inter&#xe9;s en la base de datos"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearPuntoActionPerformed"/>
@@ -302,6 +307,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/remove-picture.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Borrar punto de inter&#xe9;s en la base de datos"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -400,6 +406,7 @@
         </Container>
         <Container class="Fractal" name="fractal">
           <Properties>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="name" type="java.lang.String" value="fractal" noResource="true"/>
           </Properties>
           <Constraints>

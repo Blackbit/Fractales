@@ -39,10 +39,10 @@ public class VentanaFractal extends javax.swing.JFrame {
         selectorFichero.setFileFilter(imageFilter);
         selectorFichero.setAcceptAllFileFilterUsed(false);
 
-        btnCrearPunto.setVisible(false);
-        mnuAddPuntoInteres.setVisible(false);
-        btnBorrarPunto.setVisible(false);
-        mnuDelPuntoInteres.setVisible(false);
+        btnCrearPunto.setEnabled(false);
+        mnuCrearPunto.setEnabled(false);
+        btnBorrarPunto.setEnabled(false);
+        mnuBorrarPunto.setEnabled(false);
         fractalRepositorio.setEditable(false);
         pnlRepositorio.setVisible(false);
         panelDividido.setEnabled(false);
@@ -84,8 +84,8 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuSalir = new javax.swing.JMenuItem();
         mnuEdit = new javax.swing.JMenu();
         mnuConectarBD = new javax.swing.JMenuItem();
-        mnuAddPuntoInteres = new javax.swing.JMenuItem();
-        mnuDelPuntoInteres = new javax.swing.JMenuItem();
+        mnuCrearPunto = new javax.swing.JMenuItem();
+        mnuBorrarPunto = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuAyuda = new javax.swing.JMenuItem();
 
@@ -126,6 +126,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/new24.png"))); // NOI18N
+        btnNuevo.setToolTipText("Inicializar fractal");
         btnNuevo.setFocusable(false);
         btnNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNuevo.setMaximumSize(new java.awt.Dimension(31, 31));
@@ -138,6 +139,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.add(btnNuevo);
 
         cbClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mandelbrot", "Julia", "Julia2", "Julia3", "Julia4", "Julia5", "Julia6", "Julia7" }));
+        cbClase.setToolTipText("Selector tipo de fractal");
         cbClase.setMaximumSize(new java.awt.Dimension(80, 32767));
         cbClase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +149,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.add(cbClase);
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save24.png"))); // NOI18N
+        btnGuardar.setToolTipText("Exportar imagen a fichero JPG ");
         btnGuardar.setFocusable(false);
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -159,6 +162,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.add(filler1);
 
         btnRepositorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db2.png"))); // NOI18N
+        btnRepositorio.setToolTipText("Conectar a la base de datos");
         btnRepositorio.setFocusable(false);
         btnRepositorio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRepositorio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -170,6 +174,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.add(btnRepositorio);
 
         btnCrearPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addpicture.png"))); // NOI18N
+        btnCrearPunto.setToolTipText("Añadir punto de interés en la base de datos");
         btnCrearPunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearPuntoActionPerformed(evt);
@@ -178,6 +183,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.add(btnCrearPunto);
 
         btnBorrarPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove-picture.png"))); // NOI18N
+        btnBorrarPunto.setToolTipText("Borrar punto de interés en la base de datos");
         btnBorrarPunto.setFocusable(false);
         btnBorrarPunto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnBorrarPunto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -247,6 +253,7 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         panelDividido.setTopComponent(pnlRepositorio);
 
+        fractal.setToolTipText("");
         fractal.setName("fractal"); // NOI18N
 
         javax.swing.GroupLayout fractalLayout = new javax.swing.GroupLayout(fractal);
@@ -301,23 +308,23 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         mnuEdit.add(mnuConectarBD);
 
-        mnuAddPuntoInteres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addpicture.png"))); // NOI18N
-        mnuAddPuntoInteres.setText("Añadir punto interés");
-        mnuAddPuntoInteres.addActionListener(new java.awt.event.ActionListener() {
+        mnuCrearPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addpicture.png"))); // NOI18N
+        mnuCrearPunto.setText("Añadir punto interés");
+        mnuCrearPunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAddPuntoInteresActionPerformed(evt);
+                mnuCrearPuntoActionPerformed(evt);
             }
         });
-        mnuEdit.add(mnuAddPuntoInteres);
+        mnuEdit.add(mnuCrearPunto);
 
-        mnuDelPuntoInteres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove-picture.png"))); // NOI18N
-        mnuDelPuntoInteres.setText("Borrar punto interés");
-        mnuDelPuntoInteres.addActionListener(new java.awt.event.ActionListener() {
+        mnuBorrarPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove-picture.png"))); // NOI18N
+        mnuBorrarPunto.setText("Borrar punto interés");
+        mnuBorrarPunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuDelPuntoInteresActionPerformed(evt);
+                mnuBorrarPuntoActionPerformed(evt);
             }
         });
-        mnuEdit.add(mnuDelPuntoInteres);
+        mnuEdit.add(mnuBorrarPunto);
 
         jMenu.add(mnuEdit);
 
@@ -417,32 +424,32 @@ public class VentanaFractal extends javax.swing.JFrame {
             if (ConexionDatos.getInstance() == null) {
                 JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos");
                 btnRepositorio.setSelected(false);
-                btnCrearPunto.setVisible(false);
-                mnuAddPuntoInteres.setVisible(false);
-                btnBorrarPunto.setVisible(false);
-                mnuDelPuntoInteres.setVisible(false);
+                btnCrearPunto.setEnabled(false);
+                mnuCrearPunto.setEnabled(false);
+                btnBorrarPunto.setEnabled(false);
+                mnuBorrarPunto.setEnabled(false);
                 pnlRepositorio.setVisible(false);
                 return;
             }
 
-            btnCrearPunto.setVisible(true);
-            mnuAddPuntoInteres.setVisible(true);
+            btnCrearPunto.setEnabled(true);
+            mnuCrearPunto.setEnabled(true);
 
             puntosInteres = (GestionPuntoInteres.devuelvePuntosInteres());
             if (puntosInteres == null || puntosInteres.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No hay puntos de interés");
                 pnlRepositorio.setVisible(false);
-                btnCrearPunto.setVisible(true);
-                mnuAddPuntoInteres.setVisible(true);
-                btnBorrarPunto.setVisible(false);
-                mnuDelPuntoInteres.setVisible(false);
+                btnCrearPunto.setEnabled(true);
+                mnuCrearPunto.setEnabled(true);
+                btnBorrarPunto.setEnabled(false);
+                mnuBorrarPunto.setEnabled(false);
                 return;
             }
 
             panelDividido.resetToPreferredSizes();
             fractalRepositorio.setVisible(true);
-            btnBorrarPunto.setVisible(true);
-            mnuDelPuntoInteres.setVisible(true);
+            btnBorrarPunto.setEnabled(true);
+            mnuBorrarPunto.setEnabled(true);
             
             scRepositorio.setEnabled(true);
             scRepositorio.setMaximum(puntosInteres.size() - 1);
@@ -457,10 +464,10 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         } else {
             pnlRepositorio.setVisible(false);
-            btnCrearPunto.setVisible(false);
-            mnuAddPuntoInteres.setVisible(false);
-            btnBorrarPunto.setVisible(false);
-            mnuDelPuntoInteres.setVisible(false);
+            btnCrearPunto.setEnabled(false);
+            mnuCrearPunto.setEnabled(false);
+            btnBorrarPunto.setEnabled(false);
+            mnuBorrarPunto.setEnabled(false);
         }
     }//GEN-LAST:event_btnRepositorioActionPerformed
 
@@ -549,13 +556,13 @@ public class VentanaFractal extends javax.swing.JFrame {
         btnRepositorioActionPerformed(evt);
     }//GEN-LAST:event_mnuConectarBDActionPerformed
 
-    private void mnuAddPuntoInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAddPuntoInteresActionPerformed
+    private void mnuCrearPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCrearPuntoActionPerformed
         btnCrearPuntoActionPerformed(evt);
-    }//GEN-LAST:event_mnuAddPuntoInteresActionPerformed
+    }//GEN-LAST:event_mnuCrearPuntoActionPerformed
 
-    private void mnuDelPuntoInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDelPuntoInteresActionPerformed
+    private void mnuBorrarPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBorrarPuntoActionPerformed
         btnBorrarPuntoActionPerformed(evt);
-    }//GEN-LAST:event_mnuDelPuntoInteresActionPerformed
+    }//GEN-LAST:event_mnuBorrarPuntoActionPerformed
 
     private void mnuAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAyudaActionPerformed
         
@@ -611,10 +618,10 @@ public class VentanaFractal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblInfo;
-    private javax.swing.JMenuItem mnuAddPuntoInteres;
     private javax.swing.JMenuItem mnuAyuda;
+    private javax.swing.JMenuItem mnuBorrarPunto;
     private javax.swing.JMenuItem mnuConectarBD;
-    private javax.swing.JMenuItem mnuDelPuntoInteres;
+    private javax.swing.JMenuItem mnuCrearPunto;
     private javax.swing.JMenu mnuEdit;
     private javax.swing.JMenu mnuFichero;
     private javax.swing.JMenuItem mnuGuardarImagen;
