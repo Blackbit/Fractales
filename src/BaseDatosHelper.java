@@ -30,7 +30,14 @@ public class BaseDatosHelper {
         }
 
         try {
-            String ins = "CREATE TABLE IF NOT EXISTS `punto_interes` (`id` int(11) NOT NULL,  `clase` varchar(16) NOT NULL,  `x` double NOT NULL,  `y` double NOT NULL,  `zoom` double NOT NULL,  `max_iteraciones` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+            String ins = "CREATE TABLE IF NOT EXISTS `punto_interes` ("
+                    + "`id` int(11) NOT NULL,"
+                    + "`clase` varchar(16) NOT NULL,"
+                    + "`x` double NOT NULL,"
+                    + "`y` double NOT NULL,"
+                    + "`zoom` double NOT NULL,"
+                    + "`max_iteraciones` int(11) NOT NULL) "
+                    + "ENGINE=InnoDB DEFAULT CHARSET=latin1;";
             PreparedStatement pst2 = bd.prepareStatement(ins);
             pst2.executeUpdate();
         } catch (SQLException ex) {
@@ -39,7 +46,8 @@ public class BaseDatosHelper {
         }
 
         try {
-            String ins = "ALTER TABLE `punto_interes` ADD PRIMARY KEY (`id`);";
+            String ins = "ALTER TABLE `punto_interes` "
+                    + "ADD PRIMARY KEY (`id`);";
             PreparedStatement pst2 = bd.prepareStatement(ins);
             pst2.executeUpdate();
         } catch (SQLException ex) {
@@ -47,7 +55,8 @@ public class BaseDatosHelper {
         }
 
         try {
-            String ins = "ALTER TABLE `punto_interes` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+            String ins = "ALTER TABLE `punto_interes` "
+                    + "MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
             PreparedStatement pst2 = bd.prepareStatement(ins);
             pst2.executeUpdate();
         } catch (SQLException ex) {
