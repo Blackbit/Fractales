@@ -1,4 +1,5 @@
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -24,6 +25,7 @@ public class VentanaFractal extends javax.swing.JFrame {
 
     ArrayList<PuntoInteres> puntosInteres;
     VentanaAyuda ventanaAyuda = new VentanaAyuda();
+    VentanaConfiguracion ventanaConfiguracion = new VentanaConfiguracion();
     
     /**
      * Creates new form VentanaFractal
@@ -46,7 +48,10 @@ public class VentanaFractal extends javax.swing.JFrame {
         fractalRepositorio.setEditable(false);
         pnlRepositorio.setVisible(false);
         panelDividido.setEnabled(false);
-
+        
+        fractalRepositorio.setAlignmentY(CENTER_ALIGNMENT);
+        fractalRepositorio.setAlignmentX(CENTER_ALIGNMENT);
+        
     }
 
     /**
@@ -70,7 +75,6 @@ public class VentanaFractal extends javax.swing.JFrame {
         btnRepositorio = new javax.swing.JToggleButton();
         btnCrearPunto = new javax.swing.JButton();
         btnBorrarPunto = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         panelDividido = new javax.swing.JSplitPane();
         pnlRepositorio = new javax.swing.JPanel();
         scRepositorio = new javax.swing.JScrollBar();
@@ -88,7 +92,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuCrearPunto = new javax.swing.JMenuItem();
         mnuBorrarPunto = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnuOpciones = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuAyuda = new javax.swing.JMenuItem();
 
@@ -197,17 +201,6 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnBorrarPunto);
 
-        jButton1.setText("Crear BD");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton1);
-
         panelDividido.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         pnlRepositorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -250,7 +243,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         pnlRepositorio.setLayout(pnlRepositorioLayout);
         pnlRepositorioLayout.setHorizontalGroup(
             pnlRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+            .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepositorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(fractalRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +267,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         fractal.setLayout(fractalLayout);
         fractalLayout.setHorizontalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addGap(0, 278, Short.MAX_VALUE)
         );
         fractalLayout.setVerticalGroup(
             fractalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,8 +334,14 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuEdit.add(mnuBorrarPunto);
         mnuEdit.add(jSeparator1);
 
-        jMenuItem1.setText("Opciones");
-        mnuEdit.add(jMenuItem1);
+        mnuOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settings.png"))); // NOI18N
+        mnuOpciones.setText("Opciones");
+        mnuOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuOpcionesActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuOpciones);
 
         jMenu.add(mnuEdit);
 
@@ -440,7 +439,7 @@ public class VentanaFractal extends javax.swing.JFrame {
             pnlRepositorio.setVisible(true);
 
             if (ConexionDatos.getInstance() == null) {
-                JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos");
+                JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos. Por favor revise la configuración en opciones de la aplicación");
                 btnRepositorio.setSelected(false);
                 btnCrearPunto.setEnabled(false);
                 mnuCrearPunto.setEnabled(false);
@@ -561,8 +560,14 @@ public class VentanaFractal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBorrarPuntoActionPerformed
 
     private void pnlRepositorioComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlRepositorioComponentResized
-        Dimension d = pnlRepositorio.getSize();
-        fractalRepositorio.setLocation(d.width/2-fractalRepositorio.getWidth()/2,d.height/2-fractalRepositorio.getHeight()/2-scRepositorio.getHeight()/2);
+//        Dimension d = pnlRepositorio.getSize();
+//        fractalRepositorio.setLocation(d.width/2-fractalRepositorio.getWidth()/2,d.height/2-fractalRepositorio.getHeight()/2-scRepositorio.getHeight()/2);
+        fractalRepositorio.setAlignmentY(CENTER_ALIGNMENT);
+        fractalRepositorio.setAlignmentX(CENTER_ALIGNMENT);
+        
+        pnlRepositorio.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pnlRepositorio.setAlignmentY(Component.CENTER_ALIGNMENT);
+        
     }//GEN-LAST:event_pnlRepositorioComponentResized
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
@@ -583,16 +588,12 @@ public class VentanaFractal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuBorrarPuntoActionPerformed
 
     private void mnuAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAyudaActionPerformed
-        
+        ventanaAyuda.setVisible(true);
     }//GEN-LAST:event_mnuAyudaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (BaseDatosHelper.CrearBasedatos())
-            JOptionPane.showMessageDialog(null, "Base de datos creada correctamente o ya existía", "Ok", JOptionPane.INFORMATION_MESSAGE);
-        else
-            JOptionPane.showMessageDialog(null, "Error al crear base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-            
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void mnuOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpcionesActionPerformed
+        ventanaConfiguracion.setVisible(true);
+    }//GEN-LAST:event_mnuOpcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -640,10 +641,8 @@ public class VentanaFractal extends javax.swing.JFrame {
     private Fractal fractal;
     private Fractal fractal2;
     private Fractal fractalRepositorio;
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JMenuBar jMenu;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblInfo;
@@ -656,6 +655,7 @@ public class VentanaFractal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuGuardarImagen;
     private javax.swing.JMenu mnuHelp;
     private javax.swing.JMenuItem mnuNuevo;
+    private javax.swing.JMenuItem mnuOpciones;
     private javax.swing.JMenuItem mnuSalir;
     private javax.swing.JPopupMenu.Separator mnuSeparador1;
     private javax.swing.JPopupMenu.Separator mnuSeparador2;

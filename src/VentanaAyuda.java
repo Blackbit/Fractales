@@ -6,17 +6,21 @@
 
 /**
  *
- * @author Cinthia
+ * @author soib1a25
  */
-public class VentanaAyuda extends javax.swing.JPanel {
+public class VentanaAyuda extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaAyuda
      */
     public VentanaAyuda() {
         initComponents();
+        init();
     }
 
+    void init() {
+        txtAyuda.setCaretPosition(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,18 +31,20 @@ public class VentanaAyuda extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAyuda = new javax.swing.JTextArea();
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Curso soib de programación orientada a objetos\n----------------------------------------------\nArrastrar botón izquierdo: Hacer zoom \nArrastrar botón derecho: desplazar pantalla\nRueda ratón Añadir/Reducir número de iteraciones\nque es equivalente a añadir o quitar detalle\n\nOpciones de iconos:\nNuevo (Ctrl+N) -> \n Restaura a la situación inicial\n\nSelector de algoritmo -> \n Muestra un fractal diferente\n\nGuardar (Ctrl+S) -> \n Guarda un fichero JPG con la imagen actual\n\nAcceso a base de datos-> \n Necesita servicio de MySQL instalado\n Accede a la base de datos para recuperar puntos de interés\n Muestra una lista de puntos de interés almacenados en la BD\n\nAñadir punto de interés->\n Guarda en la base de datos un punto del fractal\n\nBorrar punto de interés-> \n Borra el punto\n\nF1 Ayuda ->\n Muestra esto\n");
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(jTextArea1);
+        setTitle("Ayuda");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        txtAyuda.setEditable(false);
+        txtAyuda.setColumns(20);
+        txtAyuda.setLineWrap(true);
+        txtAyuda.setRows(5);
+        txtAyuda.setText("Curso soib de programación orientada a objetos\n----------------------------------------------\nArrastrar botón izquierdo: Hacer zoom \nArrastrar botón derecho: desplazar pantalla\nRueda ratón Añadir/Reducir número de iteraciones\nque es equivalente a añadir o quitar detalle\n\nOpciones de iconos:\nNuevo (Ctrl+N) -> \n Restaura a la situación inicial\n\nSelector de algoritmo -> \n Muestra un fractal diferente\n\nGuardar (Ctrl+S) -> \n Guarda un fichero JPG con la imagen actual\n\nAcceso a base de datos-> \n Necesita servicio de MySQL instalado\n Accede a la base de datos para recuperar puntos de interés\n Muestra una lista de puntos de interés almacenados en la BD\n\nAñadir punto de interés->\n Guarda en la base de datos un punto del fractal\n\nBorrar punto de interés-> \n Borra el punto\n\nF1 Ayuda ->\n Muestra esto\n");
+        txtAyuda.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtAyuda);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -53,11 +59,47 @@ public class VentanaAyuda extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(VentanaAyuda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VentanaAyuda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VentanaAyuda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VentanaAyuda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VentanaAyuda().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtAyuda;
     // End of variables declaration//GEN-END:variables
 }

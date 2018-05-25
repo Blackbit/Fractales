@@ -16,9 +16,10 @@ import java.util.logging.Logger;
  * @author Cinthia
  */
 public class BaseDatosHelper {
-    static public boolean CrearBasedatos()
+    static public boolean CrearBasedatos(String url, String login, String password) throws Exception
     {
-        Connection bd = ConexionDatos.getInstance();
+        Connection bd = ConexionDatos.Test(url, login, password);
+
         try {
             String ins = "CREATE DATABASE fractales";
             PreparedStatement pst2 = bd.prepareStatement(ins);

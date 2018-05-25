@@ -214,9 +214,9 @@ public class Fractal extends javax.swing.JPanel {
     }
 
     public BufferedImage generaImagen(int ancho, int alto) {
-        BufferedImage biImagen = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_BGR);
-        this.paint(biImagen.getGraphics());
-        return biImagen;
+        BufferedImage imagenNueva = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_BGR);
+        dibujaFractal(imagenNueva);
+        return imagenNueva;
 
     }
 
@@ -226,32 +226,42 @@ public class Fractal extends javax.swing.JPanel {
         if (java.beans.Beans.isDesignTime()) {
             return;
         }
+        
+        long inicio = new Date().getTime();
+        dibujaFractal(biImagen);
+        long hasta = (new Date()).getTime();
+        g2.drawImage(biImagen, 0, 0, null);
+//        lblInfo.setText(String.format("%.02fs", (float)(hasta-inicio)/1000.0));
+        System.out.println("Ha tardado "+(hasta-inicio)+"ms");
+//        System.out.println(this.getName()+ " : NumIter"+calculoFractal.getMaxIteraciones());
 
+    }
+    
+    void dibujaFractal(BufferedImage img)
+    {
         int y, x;
         double dx;
         double dy;
         int value;
-        long inicio = new Date().getTime();
-        Dimension size = this.getSize();
-        double r = getZoom() / Math.min(size.width, size.height);
+        Dimension size;
+            
+        double r;
         double offsetX = calculoFractal.getOffsetX();
         double offsetY = calculoFractal.getOffsetY();
         double factor = calculoFractal.getFactor();
-
+        
+        size = new Dimension(img.getWidth(), img.getHeight());
+        r = getZoom() / Math.min(size.width, size.height);
+        
         for (y = 0; y < size.height; y++) {
             for (x = 0; x < size.width; x++) {
                 dx = factor * (x * r + getViewX()) - offsetX;
                 dy = offsetY - factor * (y * r + getViewY());
                 value = calculoFractal.calculaPunto(dx, dy);
-                biImagen.setRGB(x, y, colors[value % colors.length].getRGB());
+                img.setRGB(x, y, colors[value % colors.length].getRGB());
             }
         }
-        long hasta = (new Date()).getTime();
-        g2.drawImage(biImagen, 0, 0, null);
-//        lblInfo.setText(String.format("%.02fs", (float)(hasta-inicio)/1000.0));
-//        System.out.println("Ha tardado "+(hasta-inicio)+"ms");
-        System.out.println(this.getName()+ " : NumIter"+calculoFractal.getMaxIteraciones());
-
+        
     }
     
     /*@Override

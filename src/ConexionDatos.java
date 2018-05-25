@@ -1,6 +1,7 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /*
@@ -15,10 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class ConexionDatos {
     static public String bd = "fractales";
-    static public String login = "root";
-    static public String password = "";
-    static public String server = "localhost";
-    static public String url = "jdbc:mysql://"+server+"/" + bd;
+    static public String login; 
+    static public String password; 
+    static public String server; 
     static public Connection link = null;
     
     private ConexionDatos() {
@@ -29,14 +29,23 @@ public class ConexionDatos {
         try {
             if (link == null || !link.isValid(0))
             {
+                login = GestionConfiguracion.getInstance().usuario;
+                password = GestionConfiguracion.getInstance().clave;
+                server = GestionConfiguracion.getInstance().servidor;
+                
                 Class.forName("org.gjt.mm.mysql.Driver");
-                link = (Connection) DriverManager.getConnection(url, login, password);
+                link = (Connection) DriverManager.getConnection("jdbc:mysql://"+server+"/" + bd, login, password);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         
         return link;
+    }
+
+    public static Connection Test(String url, String login, String password) throws Exception {
+        Class.forName("org.gjt.mm.mysql.Driver");
+        return (Connection) DriverManager.getConnection("jdbc:mysql://"+url+"/" + bd, login, password);
     }
     
 }
