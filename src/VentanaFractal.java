@@ -1,6 +1,7 @@
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,11 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author soib1a25
@@ -49,8 +45,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         pnlRepositorio.setVisible(false);
         panelDividido.setEnabled(false);
         
-        fractalRepositorio.setAlignmentY(CENTER_ALIGNMENT);
-        fractalRepositorio.setAlignmentX(CENTER_ALIGNMENT);
+        pnlFractalRep.setLayout(new GridBagLayout());
         
     }
 
@@ -78,6 +73,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         panelDividido = new javax.swing.JSplitPane();
         pnlRepositorio = new javax.swing.JPanel();
         scRepositorio = new javax.swing.JScrollBar();
+        pnlFractalRep = new javax.swing.JPanel();
         fractalRepositorio = new Fractal();
         fractal = new Fractal();
         jMenu = new javax.swing.JMenuBar();
@@ -145,7 +141,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnNuevo);
 
-        cbClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mandelbrot", "Julia", "Julia2", "Julia3", "Julia4", "Julia5", "Julia6", "Julia7" }));
+        cbClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mandelbrot", "Julia", "Julia2", "Julia3", "Julia4", "Julia5", "Julia6", "Julia7", "Mandelbrot2" }));
         cbClase.setToolTipText("Selector tipo de fractal");
         cbClase.setMaximumSize(new java.awt.Dimension(80, 32767));
         cbClase.addActionListener(new java.awt.event.ActionListener() {
@@ -232,11 +228,27 @@ public class VentanaFractal extends javax.swing.JFrame {
         fractalRepositorio.setLayout(fractalRepositorioLayout);
         fractalRepositorioLayout.setHorizontalGroup(
             fractalRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+            .addGap(0, 171, Short.MAX_VALUE)
         );
         fractalRepositorioLayout.setVerticalGroup(
             fractalRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 94, Short.MAX_VALUE)
+            .addGap(0, 105, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlFractalRepLayout = new javax.swing.GroupLayout(pnlFractalRep);
+        pnlFractalRep.setLayout(pnlFractalRepLayout);
+        pnlFractalRepLayout.setHorizontalGroup(
+            pnlFractalRepLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFractalRepLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(fractalRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlFractalRepLayout.setVerticalGroup(
+            pnlFractalRepLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFractalRepLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fractalRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlRepositorioLayout = new javax.swing.GroupLayout(pnlRepositorio);
@@ -244,16 +256,12 @@ public class VentanaFractal extends javax.swing.JFrame {
         pnlRepositorioLayout.setHorizontalGroup(
             pnlRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepositorioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(fractalRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+            .addComponent(pnlFractalRep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlRepositorioLayout.setVerticalGroup(
             pnlRepositorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRepositorioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(fractalRepositorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlFractalRep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scRepositorio, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -439,7 +447,9 @@ public class VentanaFractal extends javax.swing.JFrame {
             pnlRepositorio.setVisible(true);
 
             if (ConexionDatos.getInstance() == null) {
-                JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos. Por favor revise la configuración en opciones de la aplicación");
+                JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos.\r\n"
+                        + "Por favor revise la configuración de acceso a la base de datos MySQL en opciones de la aplicación.\r\n"
+                        + "En opciones se puede crear la base de datos si no la has creado antes.");
                 btnRepositorio.setSelected(false);
                 btnCrearPunto.setEnabled(false);
                 mnuCrearPunto.setEnabled(false);
@@ -522,6 +532,8 @@ public class VentanaFractal extends javax.swing.JFrame {
         switch (nombre) {
             case "Mandelbrot":
                 return new Mandelbrot();
+            case "Mandelbrot2":
+                return new Mandelbrot2();
             case "Julia":
                 return new Julia();
             case "Julia2":
@@ -660,6 +672,7 @@ public class VentanaFractal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator mnuSeparador1;
     private javax.swing.JPopupMenu.Separator mnuSeparador2;
     private javax.swing.JSplitPane panelDividido;
+    private javax.swing.JPanel pnlFractalRep;
     private javax.swing.JPanel pnlRepositorio;
     private javax.swing.JScrollBar scRepositorio;
     private javax.swing.JFileChooser selectorFichero;

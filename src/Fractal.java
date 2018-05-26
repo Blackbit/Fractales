@@ -211,6 +211,7 @@ public class Fractal extends javax.swing.JPanel {
             }
             colors[i] = new Color(c, c, c);
         }
+        this.setToolTipText(null);
     }
 
     public BufferedImage generaImagen(int ancho, int alto) {

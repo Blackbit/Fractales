@@ -2,7 +2,7 @@
  *
  * @author soib1a25
  */
-public class Mandelbrot implements IFractal{
+public class Mandelbrot2 implements IFractal{
 
     /**
      * @return the offsetX
@@ -28,16 +28,17 @@ public class Mandelbrot implements IFractal{
         return 2.5;
     }
 
-    int MAXITER = 75;
+    int MAXITER = 100;
 
+    
     @Override
     public int calculaPunto(double px, double py) {
         double zx = 0.0, zy = 0.0;
         double zx2 = 0.0, zy2 = 0.0;
         int value = 0;
         while (value < MAXITER && zx2 + zy2 < 4.0) {
-            zy = 2.0 * zx * zy + py;
-            zx = zx2 - zy2 + px;
+            zy = 3.0 * zx2 * zy - zy2*zy + py;
+            zx = zx2 *zx - 3 * zy2 *zx + px;
             zx2 = zx * zx;
             zy2 = zy * zy;
             value++;
@@ -49,17 +50,21 @@ public class Mandelbrot implements IFractal{
         double zx = 0.0, zy = 0.0;
         double zx2 = 0.0, zy2 = 0.0;
         int value = 0;
-        // a = zx
-        // b = zy
+        double d;
         while (value < MAXITER && zx2 + zy2 < 4.0) {
-            zy = 3.0 * zx * zx * zy - zy2 + py;
-            zx = zx2 - 3.0 * zx * zy * zy + px;
-            zx2 = zx * zx * zx;
-            zy2 = zy * zy * zy;
+            d = Math.pow(zx, 4) + 2 * zx2 * zy2 + Math.pow(zy, 4);
+            if (d == 0)
+                break;
+            zy = -2.0 * zx * zy / d + py;
+            zx = (zx2 - zy2)/d + px;
+            zx2 = zx * zx;
+            zy2 = zy * zy;
             value++;
         }
         return value == MAXITER ? 0 : value;
     }
+
+    
 
     @Override
     public int getMaxIteraciones() {
