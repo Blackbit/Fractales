@@ -28,7 +28,7 @@ public class Julia implements IFractal{
         return 2.5;
     }
 
-    int MAXITER = 200;
+    int MAXITER = 100;
 
     @Override
         public int calculaPunto(double px, double py) {

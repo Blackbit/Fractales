@@ -1,3 +1,8 @@
+
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author soib1a25
@@ -13,7 +18,13 @@ public class VentanaAyuda extends javax.swing.JFrame {
     }
 
     void init() {
+
         txtAyuda.setCaretPosition(0);
+
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(d.width/2-this.getWidth()/2,d.height/2-this.getHeight()/2);
+
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("resources/help.png")));
     }
     /**
      * This method is called from within the constructor to initialize the form.

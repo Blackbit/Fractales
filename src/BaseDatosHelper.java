@@ -5,20 +5,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author Cinthia
+ * @author soib1a25
  */
 public class BaseDatosHelper {
     static public boolean CrearBasedatos(String url, String login, String password) throws Exception
     {
-        Connection bd = ConexionDatos.Test(url, login, password);
+        Connection bd = ConexionDatos.Test(url, login, password, false);
 
         try {
             String ins = "CREATE DATABASE fractales";
@@ -31,6 +25,15 @@ public class BaseDatosHelper {
         }
 
         try {
+            String ins = "USE fractales;";
+            PreparedStatement pst2 = bd.prepareStatement(ins);
+            pst2.executeUpdate();
+            
+        } catch (SQLException ex) {
+            return false;
+        }
+        
+        try {
             String ins = "CREATE TABLE IF NOT EXISTS `punto_interes` ("
                     + "`id` int(11) NOT NULL,"
                     + "`clase` varchar(16) NOT NULL,"
@@ -41,8 +44,9 @@ public class BaseDatosHelper {
                     + "ENGINE=InnoDB DEFAULT CHARSET=latin1;";
             PreparedStatement pst2 = bd.prepareStatement(ins);
             pst2.executeUpdate();
+            
         } catch (SQLException ex) {
-            System.out.println(ex.getErrorCode());
+            System.out.println(ex.getErrorCode()+" - "+ex.getLocalizedMessage());
             return false;
         }
 

@@ -1,4 +1,7 @@
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,6 +27,12 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         txtServidor.setText(GestionConfiguracion.getInstance().servidor);
         txtClave.setText(GestionConfiguracion.getInstance().clave);
         txtUsuario.setText(GestionConfiguracion.getInstance().usuario); 
+
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(d.width/2-this.getWidth()/2,d.height/2-this.getHeight()/2);
+
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("resources/settings.png")));
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,7 +189,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
     private void btnTestConexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestConexionActionPerformed
         try {
-            Connection link = ConexionDatos.Test(txtServidor.getText(), txtUsuario.getText(), txtClave.getText());
+            Connection link = ConexionDatos.Test(txtServidor.getText(), txtUsuario.getText(), txtClave.getText(), true);
             
             if (link == null || !link.isValid(0))
                 JOptionPane.showMessageDialog(null, "Error en conexión a la base de datos", "Error", JOptionPane.ERROR_MESSAGE);

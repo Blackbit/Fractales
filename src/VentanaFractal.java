@@ -2,6 +2,7 @@
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -46,6 +47,11 @@ public class VentanaFractal extends javax.swing.JFrame {
         panelDividido.setEnabled(false);
         
         pnlFractalRep.setLayout(new GridBagLayout());
+        
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("resources/icono2.png")));
+
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(d.width/2-this.getWidth()/2,d.height/2-this.getHeight()/2);
         
     }
 
@@ -107,6 +113,7 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fractales");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(267, 423));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -128,7 +135,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/new24.png"))); // NOI18N
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/new24.png"))); // NOI18N
         btnNuevo.setToolTipText("Inicializar fractal");
         btnNuevo.setFocusable(false);
         btnNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -151,7 +158,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(cbClase);
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save24.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save24.png"))); // NOI18N
         btnGuardar.setToolTipText("Exportar imagen a fichero JPG ");
         btnGuardar.setFocusable(false);
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -164,7 +171,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         jToolBar1.add(btnGuardar);
         jToolBar1.add(filler1);
 
-        btnRepositorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db2.png"))); // NOI18N
+        btnRepositorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/db2.png"))); // NOI18N
         btnRepositorio.setToolTipText("Conectar a la base de datos");
         btnRepositorio.setFocusable(false);
         btnRepositorio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -176,7 +183,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnRepositorio);
 
-        btnCrearPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addpicture.png"))); // NOI18N
+        btnCrearPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/addpicture.png"))); // NOI18N
         btnCrearPunto.setToolTipText("Añadir punto de interés en la base de datos");
         btnCrearPunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +192,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnCrearPunto);
 
-        btnBorrarPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove-picture.png"))); // NOI18N
+        btnBorrarPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/remove-picture.png"))); // NOI18N
         btnBorrarPunto.setToolTipText("Borrar punto de interés en la base de datos");
         btnBorrarPunto.setFocusable(false);
         btnBorrarPunto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -287,6 +294,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuFichero.setText("Fichero");
 
         mnuNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        mnuNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/new24.png"))); // NOI18N
         mnuNuevo.setText("Nuevo");
         mnuNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +305,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuFichero.add(mnuSeparador1);
 
         mnuGuardarImagen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        mnuGuardarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save24.png"))); // NOI18N
         mnuGuardarImagen.setText("Guardar imagen");
         mnuGuardarImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,13 +317,18 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         mnuSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         mnuSalir.setText("Salir");
+        mnuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSalirActionPerformed(evt);
+            }
+        });
         mnuFichero.add(mnuSalir);
 
         jMenu.add(mnuFichero);
 
         mnuEdit.setText("Edit");
 
-        mnuConectarBD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/db2.png"))); // NOI18N
+        mnuConectarBD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/db2.png"))); // NOI18N
         mnuConectarBD.setText("Conectar a BD");
         mnuConectarBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,7 +337,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         mnuEdit.add(mnuConectarBD);
 
-        mnuCrearPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/addpicture.png"))); // NOI18N
+        mnuCrearPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/addpicture.png"))); // NOI18N
         mnuCrearPunto.setText("Añadir punto interés");
         mnuCrearPunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,7 +346,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         });
         mnuEdit.add(mnuCrearPunto);
 
-        mnuBorrarPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove-picture.png"))); // NOI18N
+        mnuBorrarPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/remove-picture.png"))); // NOI18N
         mnuBorrarPunto.setText("Borrar punto interés");
         mnuBorrarPunto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,7 +356,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuEdit.add(mnuBorrarPunto);
         mnuEdit.add(jSeparator1);
 
-        mnuOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settings.png"))); // NOI18N
+        mnuOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/settings.png"))); // NOI18N
         mnuOpciones.setText("Opciones");
         mnuOpciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,6 +370,7 @@ public class VentanaFractal extends javax.swing.JFrame {
         mnuHelp.setText("Ayuda");
 
         mnuAyuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        mnuAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/help.png"))); // NOI18N
         mnuAyuda.setText("Ayuda");
         mnuAyuda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -606,6 +621,11 @@ public class VentanaFractal extends javax.swing.JFrame {
     private void mnuOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpcionesActionPerformed
         ventanaConfiguracion.setVisible(true);
     }//GEN-LAST:event_mnuOpcionesActionPerformed
+
+    private void mnuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSalirActionPerformed
+        // Salir de la aplicación
+        System.exit(0); 
+    }//GEN-LAST:event_mnuSalirActionPerformed
 
     /**
      * @param args the command line arguments

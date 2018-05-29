@@ -36,6 +36,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/new24.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
               <Events>
@@ -48,6 +51,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/save24.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar imagen"/>
               </Properties>
@@ -64,6 +70,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuSalirActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -75,7 +84,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mnuConectarBD">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/db2.png"/>
+                  <Image iconType="3" name="/resources/db2.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Conectar a BD"/>
               </Properties>
@@ -86,7 +95,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mnuCrearPunto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/addpicture.png"/>
+                  <Image iconType="3" name="/resources/addpicture.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir punto inter&#xe9;s"/>
               </Properties>
@@ -97,7 +106,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mnuBorrarPunto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/remove-picture.png"/>
+                  <Image iconType="3" name="/resources/remove-picture.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Borrar punto inter&#xe9;s"/>
               </Properties>
@@ -110,7 +119,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mnuOpciones">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/settings.png"/>
+                  <Image iconType="3" name="/resources/settings.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Opciones"/>
               </Properties>
@@ -130,6 +139,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="F1"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/help.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ayuda"/>
               </Properties>
               <Events>
@@ -144,6 +156,9 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Fractales"/>
+    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+      <Color id="Cursor Por defecto"/>
+    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[267, 423]"/>
     </Property>
@@ -220,7 +235,7 @@
         <Component class="javax.swing.JButton" name="btnNuevo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/new24.png"/>
+              <Image iconType="3" name="/resources/new24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Inicializar fractal"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -264,7 +279,7 @@
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/save24.png"/>
+              <Image iconType="3" name="/resources/save24.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Exportar imagen a fichero JPG "/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -294,7 +309,7 @@
         <Component class="javax.swing.JToggleButton" name="btnRepositorio">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/db2.png"/>
+              <Image iconType="3" name="/resources/db2.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Conectar a la base de datos"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -308,7 +323,7 @@
         <Component class="javax.swing.JButton" name="btnCrearPunto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/addpicture.png"/>
+              <Image iconType="3" name="/resources/addpicture.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="A&#xf1;adir punto de inter&#xe9;s en la base de datos"/>
           </Properties>
@@ -319,7 +334,7 @@
         <Component class="javax.swing.JButton" name="btnBorrarPunto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/remove-picture.png"/>
+              <Image iconType="3" name="/resources/remove-picture.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Borrar punto de inter&#xe9;s en la base de datos"/>
             <Property name="focusable" type="boolean" value="false"/>
