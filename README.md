@@ -25,7 +25,7 @@ El desplazamiento del fractal con el botón derecho es incorrecto. Hay que revis
 
 # Posibles ampliaciones
 
-Se podría ampliar el tipo de fractales para que pudiera incorporar otros tipos de iteraciones como fractales tipo árbol u otros algoritmos no basados en renderizar puntos x,y. Entonces habría que modificar el interface IFractal para que pudiera tener por ejemplo un selector de tipo de fractal, y que en funci�n de si es true/false llame a la función de calculaPunto, se llamara a una nueva hipotética función dibujaFractal. Luego quedaría saber cómo gestionar las ampliaciones con los nuevos tipos de fractales.
+Se podría ampliar el tipo de fractales para que pudiera incorporar otros tipos de iteraciones como fractales tipo árbol u otros algoritmos no basados en renderizar puntos x,y. Entonces habría que modificar el interface IFractal para que pudiera tener por ejemplo un selector de tipo de fractal, y que en función de si es true/false llame a la función de calculaPunto, se llamara a una nueva hipotética función dibujaFractal. Luego quedaría saber cómo gestionar las ampliaciones con los nuevos tipos de fractales.
 
 Actualmente sólo se usa una paleta de colores en blanco y negro. Se podría añadir paletas predefinidas con mayor colorido, o bien poner un editor de paletas. 
 
