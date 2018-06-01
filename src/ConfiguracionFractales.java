@@ -4,7 +4,7 @@ import java.io.Serializable;
 /**
  * Clase con la configuración de la aplicación
  * 
- * @author soib1a25
+ * @author Blackbit
  */
 class ConfiguracionFractales implements Serializable {
     /*

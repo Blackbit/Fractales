@@ -2,13 +2,30 @@
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import static java.lang.System.in;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class VentanaAyuda extends javax.swing.JFrame {
-
+    String ficheroAyuda;
     /**
      * Creates new form VentanaAyuda
      */
@@ -17,15 +34,30 @@ public class VentanaAyuda extends javax.swing.JFrame {
         init();
     }
 
+    
     void init() {
-
-        txtAyuda.setCaretPosition(0);
 
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(d.width/2-this.getWidth()/2,d.height/2-this.getHeight()/2);
-
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("resources/help.png")));
+
+        String textoAyuda = LeeRecurso.FicheroTexto("resources/ayuda.txt");
+        txtAyuda.setText(textoAyuda);
+        txtAyuda.setCaretPosition(0);
+        
+        ActionListener escListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        };
+
+        getRootPane().registerKeyboardAction(escListener,
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +76,6 @@ public class VentanaAyuda extends javax.swing.JFrame {
         txtAyuda.setColumns(20);
         txtAyuda.setLineWrap(true);
         txtAyuda.setRows(5);
-        txtAyuda.setText("Curso soib de programación orientada a objetos\n----------------------------------------------\nArrastrar botón izquierdo: Hacer zoom \nArrastrar botón derecho: desplazar pantalla\nRueda ratón Añadir/Reducir número de iteraciones\nque es equivalente a añadir o quitar detalle\n\nOpciones de iconos:\nNuevo (Ctrl+N) -> \n Restaura a la situación inicial\n\nSelector de algoritmo -> \n Muestra un fractal diferente\n\nGuardar (Ctrl+S) -> \n Guarda un fichero JPG con la imagen actual\n\nAcceso a base de datos-> \n Necesita servicio de MySQL instalado\n Accede a la base de datos para recuperar puntos de interés\n Muestra una lista de puntos de interés almacenados en la BD\n\nAñadir punto de interés->\n Guarda en la base de datos un punto del fractal\n\nBorrar punto de interés-> \n Borra el punto\n\nF1 Ayuda ->\n Muestra esto\n");
         txtAyuda.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtAyuda);
 

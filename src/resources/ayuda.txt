@@ -1,0 +1,31 @@
+Fractales
+----------------------------------------------
+Arrastrar botón izquierdo: Hacer zoom 
+Arrastrar botón derecho: desplazar pantalla
+Rueda ratón Añadir/Reducir número de iteraciones
+que es equivalente a añadir o quitar detalle
+
+Opciones de iconos:
+Nuevo (Ctrl+N) -> 
+ Restaura a la situación inicial
+
+Selector de algoritmo -> 
+ Muestra un fractal diferente
+
+Guardar (Ctrl+S) -> 
+ Guarda un fichero JPG con la imagen actual
+
+Acceso a base de datos-> 
+ Necesita servicio de MySQL instalado
+ Accede a la base de datos para recuperar puntos de interés
+ Muestra una lista de puntos de interés almacenados en la BD
+
+Añadir punto de interés->
+ Guarda en la base de datos un punto del fractal
+
+Borrar punto de interés-> 
+ Borra el punto
+
+F1 Ayuda ->
+ Muestra esto
+

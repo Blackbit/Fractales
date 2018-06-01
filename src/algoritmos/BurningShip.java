@@ -1,8 +1,13 @@
+package algoritmos;
+
+
+import algoritmos.IFractal;
+
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
-public class Mandelbrot implements IFractal{
+public class BurningShip implements IFractal{
 
     /**
      * @return the offsetX
@@ -28,15 +33,16 @@ public class Mandelbrot implements IFractal{
         return 2.5;
     }
 
-    int MAXITER = 64;
+    int MAXITER = 75;
 
     @Override
     public int calculaPunto(double px, double py) {
-        double zx = 0.0, zy = 0.0;
-        double zx2 = 0.0, zy2 = 0.0;
+        double zx = px, zy = py;
+        double zx2 = px*px, zy2 = py*py;
         int value = 0;
         while (value < MAXITER && zx2 + zy2 < 4.0) {
-            zy = 2.0 * zx * zy + py;
+            zy = Math.abs(zy*zx);
+            zy += zy + zy - py;
             zx = zx2 - zy2 + px;
             zx2 = zx * zx;
             zy2 = zy * zy;
@@ -45,21 +51,6 @@ public class Mandelbrot implements IFractal{
         return value == MAXITER ? 0 : value;
     }
     
-    public int calculaPuntoX(double px, double py) {
-        double zx = 0.0, zy = 0.0;
-        double zx2 = 0.0, zy2 = 0.0;
-        int value = 0;
-        // a = zx
-        // b = zy
-        while (value < MAXITER && zx2 + zy2 < 4.0) {
-            double zrealUpdated = zx * zx - zy * zy + px;
-            double zimaginaryUpdated = 2 * Math.abs(zx) * Math.abs(zy) + py;
-            zx = zrealUpdated;
-            zy = zimaginaryUpdated;
-        value++;
-        }
-        return value == MAXITER ? 0 : value;
-    }
 
     @Override
     public int getMaxIteraciones() {

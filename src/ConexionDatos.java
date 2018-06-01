@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class ConexionDatos {
 
@@ -28,12 +28,14 @@ public class ConexionDatos {
 
         try {
             if (link == null || !link.isValid(0)) {
+                
                 login = GestionConfiguracion.getInstance().usuario;
                 password = GestionConfiguracion.getInstance().clave;
                 server = GestionConfiguracion.getInstance().servidor;
 
                 Class.forName("org.gjt.mm.mysql.Driver");
                 link = (Connection) DriverManager.getConnection("jdbc:mysql://" + server + "/" + bd, login, password);
+                
             }
         } catch (SQLException e) {
             

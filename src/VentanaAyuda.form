@@ -54,7 +54,6 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Curso soib de programaci&#xf3;n orientada a objetos&#xa;----------------------------------------------&#xa;Arrastrar bot&#xf3;n izquierdo: Hacer zoom &#xa;Arrastrar bot&#xf3;n derecho: desplazar pantalla&#xa;Rueda rat&#xf3;n A&#xf1;adir/Reducir n&#xfa;mero de iteraciones&#xa;que es equivalente a a&#xf1;adir o quitar detalle&#xa;&#xa;Opciones de iconos:&#xa;Nuevo (Ctrl+N) -&gt; &#xa; Restaura a la situaci&#xf3;n inicial&#xa;&#xa;Selector de algoritmo -&gt; &#xa; Muestra un fractal diferente&#xa;&#xa;Guardar (Ctrl+S) -&gt; &#xa; Guarda un fichero JPG con la imagen actual&#xa;&#xa;Acceso a base de datos-&gt; &#xa; Necesita servicio de MySQL instalado&#xa; Accede a la base de datos para recuperar puntos de inter&#xe9;s&#xa; Muestra una lista de puntos de inter&#xe9;s almacenados en la BD&#xa;&#xa;A&#xf1;adir punto de inter&#xe9;s-&gt;&#xa; Guarda en la base de datos un punto del fractal&#xa;&#xa;Borrar punto de inter&#xe9;s-&gt; &#xa; Borra el punto&#xa;&#xa;F1 Ayuda -&gt;&#xa; Muestra esto&#xa;"/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
           </Properties>
         </Component>

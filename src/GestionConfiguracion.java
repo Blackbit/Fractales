@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class GestionConfiguracion {
     static final String fichero = "config.dat";

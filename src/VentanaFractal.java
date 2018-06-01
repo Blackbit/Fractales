@@ -1,4 +1,14 @@
 
+import algoritmos.Julia6;
+import algoritmos.Julia5;
+import algoritmos.Julia4;
+import algoritmos.Julia2;
+import algoritmos.Mandelbrot;
+import algoritmos.Mandelbrot2;
+import algoritmos.Julia;
+import algoritmos.IFractal;
+import algoritmos.Julia7;
+import algoritmos.Julia3;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -16,7 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class VentanaFractal extends javax.swing.JFrame {
 
@@ -222,7 +232,7 @@ public class VentanaFractal extends javax.swing.JFrame {
             }
         });
 
-        fractalRepositorio.setToolTipText("");
+        fractalRepositorio.setToolTipText(null);
         fractalRepositorio.setMaximumSize(new java.awt.Dimension(160, 102));
         fractalRepositorio.setName("repositorio"); // NOI18N
         fractalRepositorio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,7 +285,7 @@ public class VentanaFractal extends javax.swing.JFrame {
 
         panelDividido.setTopComponent(pnlRepositorio);
 
-        fractal.setToolTipText("");
+        fractal.setToolTipText(null);
         fractal.setName("fractal"); // NOI18N
 
         javax.swing.GroupLayout fractalLayout = new javax.swing.GroupLayout(fractal);
@@ -505,6 +515,7 @@ public class VentanaFractal extends javax.swing.JFrame {
             fractalRepositorio.repaint();
 
         } else {
+
             pnlRepositorio.setVisible(false);
             btnCrearPunto.setEnabled(false);
             mnuCrearPunto.setEnabled(false);

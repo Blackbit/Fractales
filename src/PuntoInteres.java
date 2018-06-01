@@ -1,6 +1,6 @@
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 class PuntoInteres
 {

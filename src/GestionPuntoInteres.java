@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class GestionPuntoInteres {
     

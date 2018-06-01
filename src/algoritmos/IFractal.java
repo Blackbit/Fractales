@@ -1,6 +1,8 @@
+package algoritmos;
+
 /**
  * Interface con los métodos para generalizar el manejo de los diferentes fractales
- * @author soib1a25
+ * @author Blackbit
  */
 public interface IFractal {
     /**

@@ -1,8 +1,10 @@
+package algoritmos;
+
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
-public class Julia7 implements IFractal{
+public class Julia implements IFractal{
 
     /**
      * @return the offsetX
@@ -28,7 +30,7 @@ public class Julia7 implements IFractal{
         return 2.5;
     }
 
-    int MAXITER = 200;
+    int MAXITER = 100;
 
     @Override
         public int calculaPunto(double px, double py) {
@@ -36,8 +38,8 @@ public class Julia7 implements IFractal{
         double zx2 = px * px, zy2 = py * py;
         int value = 0;
         while (value < MAXITER && zx2 + zy2 < 4.0) {
-            zy = 2.0 * zx * zy - 0.601;
-            zx = zx2 - zy2 - 0.51;
+            zy = 2.0 * zx * zy + 0.27015;
+            zx = zx2 - zy2 -0.7;
             zx2 = zx * zx;
             zy2 = zy * zy;
             value++;

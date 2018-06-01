@@ -1,8 +1,10 @@
+package algoritmos;
+
 /**
  *
- * @author soib1a25
+ * @author Cinthia
  */
-public class BurningShip implements IFractal{
+public class Julia5 implements IFractal{
 
     /**
      * @return the offsetX
@@ -28,24 +30,22 @@ public class BurningShip implements IFractal{
         return 2.5;
     }
 
-    int MAXITER = 75;
+    int MAXITER = 200;
 
     @Override
-    public int calculaPunto(double px, double py) {
+        public int calculaPunto(double px, double py) {
         double zx = px, zy = py;
-        double zx2 = px*px, zy2 = py*py;
+        double zx2 = px * px, zy2 = py * py;
         int value = 0;
         while (value < MAXITER && zx2 + zy2 < 4.0) {
-            zy = Math.abs(zy*zx);
-            zy += zy + zy - py;
-            zx = zx2 - zy2 + px;
+            zy = 2.0 * zx * zy - 0.196;
+            zx = zx2 - zy2 -0.72;
             zx2 = zx * zx;
             zy2 = zy * zy;
             value++;
         }
         return value == MAXITER ? 0 : value;
     }
-    
 
     @Override
     public int getMaxIteraciones() {
@@ -58,3 +58,4 @@ public class BurningShip implements IFractal{
     }
     
 }
+

@@ -1,6 +1,8 @@
+package algoritmos;
+
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class Mandelbrot2 implements IFractal{
 

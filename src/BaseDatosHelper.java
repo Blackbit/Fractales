@@ -7,9 +7,10 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class BaseDatosHelper {
+    
     static public boolean CrearBasedatos(String url, String login, String password) throws Exception
     {
         Connection bd = ConexionDatos.Test(url, login, password, false);

@@ -1,9 +1,12 @@
+package algoritmos;
 
+
+import algoritmos.IFractal;
 import java.awt.Graphics;
 
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
 public class Arbol implements IFractal{
 

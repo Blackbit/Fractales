@@ -1,8 +1,10 @@
+package algoritmos;
+
 /**
  *
- * @author soib1a25
+ * @author Blackbit
  */
-public class Julia6 implements IFractal{
+public class Julia3 implements IFractal{
 
     /**
      * @return the offsetX
@@ -36,8 +38,8 @@ public class Julia6 implements IFractal{
         double zx2 = px * px, zy2 = py * py;
         int value = 0;
         while (value < MAXITER && zx2 + zy2 < 4.0) {
-            zy = 2.0 * zx * zy + 0.87;
-            zx = zx2 - zy2 -0.1;
+            zy = 2.0 * zx * zy + 0;
+            zx = zx2 - zy2 + 0.279;
             zx2 = zx * zx;
             zy2 = zy * zy;
             value++;
